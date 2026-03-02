@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruiter Dashboard - AutoHireBot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: #0891b2; --primary-dark: #0e7490; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --dark: #1e293b; --gray: #64748b; --light: #f1f5f9; --white: #ffffff; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--light); min-height: 100vh; }
+    
+    /* Screens */
+    .screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9999; flex-direction: column; }
+    .screen.hidden { display: none; }
+    
+    .loading-screen { background: linear-gradient(135deg, #0c1222, #1e293b); }
+    .spinner { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-screen p { color: white; margin-top: 20px; }
+    
+    .login-screen { background: linear-gradient(135deg, #0c1222, #1e293b); }
+    .login-box { background: white; padding: 40px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .login-box h2 { color: var(--dark); margin-bottom: 10px; }
+    .login-box > p { color: var(--gray); margin-bottom: 25px; font-size: 14px; }
+    .login-input { width: 100%; padding: 14px; margin-bottom: 15px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px; }
+    .login-input:focus { outline: none; border-color: var(--primary); }
+    .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(8,145,178,0.4); }
+    .login-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .back-link { margin-top: 20px; }
+    .back-link a { color: var(--primary); text-decoration: none; font-size: 14px; }
+    
+    .pending-screen { background: linear-gradient(135deg, #0c1222, #1e293b); }
+    .pending-box { background: white; padding: 40px; border-radius: 16px; width: 90%; max-width: 450px; text-align: center; }
+    .pending-icon { font-size: 60px; margin-bottom: 20px; }
+    .pending-box h2 { color: var(--dark); margin-bottom: 15px; }
+    .pending-box p { color: var(--gray); line-height: 1.6; }
+    .pending-info { background: #fef3c7; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: left; }
+    .pending-info p { color: #92400e; font-size: 14px; margin: 5px 0; }
+    
+    /* Dashboard */
+    .dashboard { display: none; }
+    .dashboard.visible { display: block; }
+    
+    .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: linear-gradient(180deg, var(--dark), #0f172a); padding: 20px; overflow-y: auto; z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 12px; padding: 10px 0 25px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+    .logo-icon { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), var(--success)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .logo-text { color: white; font-size: 20px; font-weight: 700; }
+    
+    .user-info { background: rgba(8,145,178,0.15); padding: 15px; border-radius: 10px; margin-bottom: 25px; }
+    .user-name { color: white; font-weight: 600; font-size: 15px; }
+    .user-facility { color: #94a3b8; font-size: 12px; margin-top: 4px; }
+    .user-status { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 600; }
+    .user-status.active { background: rgba(16,185,129,0.2); color: #10b981; }
+    .user-status.pending { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    
+    .nav-menu { list-style: none; }
+    .nav-item { margin-bottom: 5px; }
+    .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+    .nav-link:hover, .nav-link.active { background: rgba(8,145,178,0.2); color: white; }
+    .nav-link.active { background: var(--primary); }
+    .nav-badge { margin-left: auto; background: var(--success); color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+    
+    .main-content { margin-left: 260px; padding: 30px; min-height: 100vh; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+    .header h1 { color: var(--dark); font-size: 26px; font-weight: 700; }
+    .header p { color: var(--gray); margin-top: 5px; }
+    
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.3s; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-success { background: var(--success); color: white; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card { background: white; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 15px; }
+    .stat-icon.blue { background: rgba(8,145,178,0.15); }
+    .stat-icon.green { background: rgba(16,185,129,0.15); }
+    .stat-icon.yellow { background: rgba(245,158,11,0.15); }
+    .stat-icon.purple { background: rgba(139,92,246,0.15); }
+    .stat-value { font-size: 30px; font-weight: 700; color: var(--dark); }
+    .stat-label { color: var(--gray); font-size: 13px; margin-top: 5px; }
+    
+    .section { display: none; }
+    .section.active { display: block; }
+    
+    .card { background: white; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 20px; }
+    .card-header { padding: 20px 25px; border-bottom: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
+    .card-header h2 { font-size: 17px; color: var(--dark); }
+    .card-body { padding: 20px 25px; }
+    
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 14px 16px; text-align: left; }
+    th { background: var(--light); color: var(--gray); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+    td { border-bottom: 1px solid var(--light); color: var(--dark); font-size: 14px; }
+    
+    .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge-success { background: rgba(16,185,129,0.15); color: var(--success); }
+    .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+    .badge-primary { background: rgba(8,145,178,0.15); color: var(--primary); }
+    
+    .empty { text-align: center; padding: 40px; color: var(--gray); }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; color: var(--dark); font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+    .form-control { width: 100%; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px; }
+    .form-control:focus { outline: none; border-color: var(--primary); }
+    textarea.form-control { min-height: 100px; resize: vertical; }
+    
+    .candidate-card { background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+    .candidate-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; }
+    .candidate-name { font-weight: 600; color: var(--dark); font-size: 16px; }
+    .candidate-role { color: var(--gray); font-size: 13px; margin-top: 4px; }
+    .match-score { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+    .match-high { background: rgba(16,185,129,0.2); color: #059669; }
+    .match-medium { background: rgba(245,158,11,0.2); color: #d97706; }
+    .candidate-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+    .candidate-detail { font-size: 13px; color: var(--gray); }
+    .candidate-detail strong { color: var(--dark); }
+    
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; }
+    .toast { padding: 15px 20px; border-radius: 10px; margin-bottom: 10px; color: white; animation: slideIn 0.3s; }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--danger); }
+    .toast.info { background: var(--primary); }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } }
+    
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: white; border-radius: 16px; width: 100%; max-width: 550px; max-height: 85vh; overflow-y: auto; }
+    .modal-header { padding: 20px 25px; border-bottom: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h3 { font-size: 18px; color: var(--dark); }
+    .modal-close { background: none; border: none; font-size: 26px; cursor: pointer; color: var(--gray); line-height: 1; }
+    .modal-body { padding: 25px; }
+    .modal-footer { padding: 20px 25px; border-top: 1px solid var(--light); display: flex; justify-content: flex-end; gap: 10px; }
+    
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="screen loading-screen" id="loadingScreen">
+    <div class="spinner"></div>
+    <p>Loading Dashboard...</p>
+  </div>
+
+  <!-- Login Screen -->
+  <div class="screen login-screen hidden" id="loginScreen">
+    <div class="login-box">
+      <h2>🏥 Recruiter Login</h2>
+      <p>Enter your registered email and password</p>
+      <form id="loginForm">
+        <input type="email" class="login-input" id="loginEmail" placeholder="Email Address" required>
+        <input type="password" class="login-input" id="loginPassword" placeholder="Password" required>
+        <button type="submit" class="login-btn" id="loginBtn">Login to Dashboard</button>
+      </form>
+      <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Verification Screen -->
+  <div class="screen pending-screen hidden" id="pendingScreen">
+    <div class="pending-box">
+      <div class="pending-icon">⏳</div>
+      <h2>Payment Verification Pending</h2>
+      <p>Your payment is being verified by our team. This usually takes up to 24 hours.</p>
+      <div class="pending-info">
+        <p><strong>Facility:</strong> <span id="pendingFacility">-</span></p>
+        <p><strong>UTR Number:</strong> <span id="pendingUTR">-</span></p>
+        <p><strong>Status:</strong> <span style="color: #f59e0b;">Under Review</span></p>
+      </div>
+      <p style="margin-top: 20px; font-size: 14px;">You'll receive an email once your account is activated.</p>
+      <button onclick="logout()" style="margin-top: 20px; padding: 12px 30px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">Logout</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">🏥</div>
+        <span class="logo-text">AutoHireBot</span>
+      </div>
+      
+      <div class="user-info">
+        <div class="user-name" id="userName">Loading...</div>
+        <div class="user-facility" id="userFacility">-</div>
+        <span class="user-status active" id="userStatus">Active</span>
+      </div>
+      
+      <ul class="nav-menu">
+        <li class="nav-item"><a class="nav-link active" data-section="overview">📊 Overview</a></li>
+        <li class="nav-item"><a class="nav-link" data-section="jobs">💼 My Jobs <span class="nav-badge" id="jobCount">0</span></a></li>
+        <li class="nav-item"><a class="nav-link" data-section="candidates">👥 Candidates <span class="nav-badge" id="candidateCount">0</span></a></li>
+        <li class="nav-item"><a class="nav-link" data-section="profile">⚙️ Profile</a></li>
+      </ul>
+      
+      <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+        <a class="nav-link" href="index.html">🏠 Home</a>
+        <a class="nav-link" onclick="logout()" style="color: #ef4444; cursor: pointer;">🚪 Logout</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Overview Section -->
+      <section id="overview" class="section active">
+        <div class="header">
+          <div>
+            <h1>Dashboard Overview</h1>
+            <p>Welcome back! Here's your recruitment summary.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openPostJobModal()">+ Post New Job</button>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">💼</div>
+            <div class="stat-value" id="totalJobs">0</div>
+            <div class="stat-label">Active Jobs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">👥</div>
+            <div class="stat-value" id="totalCandidates">0</div>
+            <div class="stat-label">Matched Candidates</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon yellow">📨</div>
+            <div class="stat-value" id="totalApplications">0</div>
+            <div class="stat-label">Applications</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">✅</div>
+            <div class="stat-value" id="totalHired">0</div>
+            <div class="stat-label">Hired</div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h2>Recent Candidates</h2>
+            <button class="btn btn-primary" onclick="showSection('candidates')">View All</button>
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Role</th><th>Experience</th><th>Match</th><th>Status</th></tr></thead>
+            <tbody id="recentCandidatesTable">
+              <tr><td colspan="5" class="empty">No candidates yet. Post a job to get matched!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Jobs Section -->
+      <section id="jobs" class="section">
+        <div class="header">
+          <div>
+            <h1>My Job Postings</h1>
+            <p>Manage your active job listings</p>
+          </div>
+          <button class="btn btn-primary" onclick="openPostJobModal()">+ Post New Job</button>
+        </div>
+        
+        <div class="card">
+          <table>
+            <thead><tr><th>Job Title</th><th>Department</th><th>Location</th><th>Applicants</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="jobsTable">
+              <tr><td colspan="6" class="empty">No jobs posted yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Candidates Section -->
+      <section id="candidates" class="section">
+        <div class="header">
+          <div>
+            <h1>Matched Candidates</h1>
+            <p>AI-matched candidates for your jobs</p>
+          </div>
+        </div>
+        
+        <div id="candidatesList">
+          <div class="empty" style="background: white; padding: 40px; border-radius: 12px;">
+            No matched candidates yet. Post a job to get AI-matched candidates!
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Section -->
+      <section id="profile" class="section">
+        <div class="header">
+          <div>
+            <h1>Facility Profile</h1>
+            <p>Manage your facility information</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-body">
+            <form id="profileForm">
+              <div class="form-group">
+                <label>Facility Name</label>
+                <input type="text" class="form-control" id="profileFacility" disabled>
+              </div>
+              <div class="form-group">
+                <label>Contact Person</label>
+                <input type="text" class="form-control" id="profileContact" disabled>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" id="profileEmail" disabled>
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" class="form-control" id="profilePhone" disabled>
+              </div>
+              <div class="form-group">
+                <label>Location</label>
+                <input type="text" class="form-control" id="profileLocation" disabled>
+              </div>
+              <div class="form-group">
+                <label>Account Status</label>
+                <input type="text" class="form-control" id="profileStatus" disabled>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Post Job Modal -->
+  <div class="modal-overlay" id="postJobModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Post New Job</h3>
+        <button class="modal-close" onclick="closeModal('postJobModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="postJobForm">
+          <div class="form-group">
+            <label>Job Title *</label>
+            <select class="form-control" id="jobTitle" required>
+              <option value="">Select Role</option>
+              <option value="Staff Nurse">Staff Nurse</option>
+              <option value="Head Nurse">Head Nurse</option>
+              <option value="ICU Nurse">ICU Nurse</option>
+              <option value="Emergency Nurse">Emergency Nurse</option>
+              <option value="OT Nurse">OT Nurse</option>
+              <option value="Nursing Supervisor">Nursing Supervisor</option>
+              <option value="Medical Assistant">Medical Assistant</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Department *</label>
+            <select class="form-control" id="jobDepartment" required>
+              <option value="">Select Department</option>
+              <option value="ICU/Critical Care">ICU/Critical Care</option>
+              <option value="Emergency">Emergency</option>
+              <option value="Medical-Surgical">Medical-Surgical</option>
+              <option value="Pediatrics">Pediatrics</option>
+              <option value="Labor & Delivery">Labor & Delivery</option>
+              <option value="Operating Room">Operating Room</option>
+              <option value="Oncology">Oncology</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Salary Range</label>
+            <input type="text" class="form-control" id="jobSalary" placeholder="e.g., ₹25,000 - ₹35,000/month">
+          </div>
+          <div class="form-group">
+            <label>Job Description</label>
+            <textarea class="form-control" id="jobDescription" placeholder="Describe the role, responsibilities, requirements..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal('postJobModal')" style="background: var(--light);">Cancel</button>
+        <button class="btn btn-success" onclick="submitJob()">Post Job</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toasts"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Firebase Config
+    firebase.initializeApp({
+      apiKey: "AIzaSyAv4PeLg7i_6To1p6Dsk35cAVrEcyiOEnE",
+      authDomain: "autohirebot.firebaseapp.com",
+      projectId: "autohirebot",
+      storageBucket: "autohirebot.firebasestorage.app",
+      messagingSenderId: "295514208219",
+      appId: "1:295514208219:web:22e3eda8f030cf418d59fe"
+    });
+    
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    let currentRecruiter = null;
+    let jobs = [];
+    let candidates = [];
+    
+    // Toast
+    function toast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = 'toast ' + type;
+      t.textContent = msg;
+      document.getElementById('toasts').appendChild(t);
+      setTimeout(() => t.remove(), 4000);
+    }
+    
+    // Screen Management
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+      document.getElementById('dashboard').classList.remove('visible');
+      
+      if (screenId === 'dashboard') {
+        document.getElementById('loadingScreen').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('visible');
+      } else {
+        document.getElementById(screenId).classList.remove('hidden');
+      }
+    }
+    
+    // Auth State - Check Firebase Auth and session
+    async function checkLogin() {
+      // Check for existing session first
+      const storedRecruiterId = sessionStorage.getItem('recruiterId');
+      
+      if (storedRecruiterId) {
+        try {
+          const recruiterDoc = await db.collection('recruiters').doc(storedRecruiterId).get();
+          
+          if (recruiterDoc.exists) {
+            currentRecruiter = { id: storedRecruiterId, ...recruiterDoc.data() };
+            console.log('Session restored:', currentRecruiter.facilityName);
+            
+            // Check payment status
+            if (currentRecruiter.paymentStatus !== 'approved' && currentRecruiter.status !== 'approved') {
+              document.getElementById('pendingFacility').textContent = currentRecruiter.facilityName || '-';
+              document.getElementById('pendingUTR').textContent = currentRecruiter.utrNumber || 'Not submitted';
+              showScreen('pendingScreen');
+              return;
+            }
+            
+            loadDashboard();
+            return;
+          }
+        } catch (e) {
+          console.error('Session check error:', e);
+          sessionStorage.removeItem('recruiterId');
+        }
+      }
+      
+      // No valid session, show login screen
+      showScreen('loginScreen');
+    }
+    
+    // Firebase Auth state listener
+    auth.onAuthStateChanged(async (user) => {
+      console.log('Auth state changed:', user ? user.email : 'none');
+      
+      if (user) {
+        // User is signed in, try to load their recruiter profile
+        try {
+          const recruitersSnap = await db.collection('recruiters')
+            .where('email', '==', user.email.toLowerCase())
+            .limit(1)
+            .get();
+          
+          if (!recruitersSnap.empty) {
+            const doc = recruitersSnap.docs[0];
+            currentRecruiter = { id: doc.id, ...doc.data() };
+            sessionStorage.setItem('recruiterId', doc.id);
+            
+            // Check payment status
+            if (currentRecruiter.paymentStatus !== 'approved' && currentRecruiter.status !== 'approved') {
+              document.getElementById('pendingFacility').textContent = currentRecruiter.facilityName || '-';
+              document.getElementById('pendingUTR').textContent = currentRecruiter.utrNumber || 'Not submitted';
+              showScreen('pendingScreen');
+              return;
+            }
+            
+            loadDashboard();
+            return;
+          }
+        } catch (e) {
+          console.error('Auth state recruiter lookup error:', e);
+        }
+      }
+      
+      // Check session as fallback
+      checkLogin();
+    });
+    
+    // Login Form - Uses Firebase Auth with better error handling
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('loginBtn');
+      
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+      
+      try {
+        // First check if recruiter exists in Firestore (case-insensitive check)
+        const recruitersSnap = await db.collection('recruiters')
+          .where('email', '==', email.toLowerCase())
+          .limit(1)
+          .get();
+        
+        let recruiterDoc = null;
+        
+        if (recruitersSnap.empty) {
+          // Try with original case
+          const snap2 = await db.collection('recruiters')
+            .where('email', '==', email)
+            .limit(1)
+            .get();
+          
+          if (snap2.empty) {
+            toast('No recruiter account found with this email', 'error');
+            btn.disabled = false;
+            btn.textContent = 'Login to Dashboard';
+            return;
+          }
+          recruiterDoc = snap2.docs[0];
+        } else {
+          recruiterDoc = recruitersSnap.docs[0];
+        }
+        
+        // Now try Firebase Auth login
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        console.log('Auth successful:', userCredential.user.email);
+        
+        // Store recruiter data
+        currentRecruiter = { id: recruiterDoc.id, ...recruiterDoc.data() };
+        sessionStorage.setItem('recruiterId', recruiterDoc.id);
+        
+        // Check payment/approval status
+        if (currentRecruiter.paymentStatus !== 'approved' && currentRecruiter.status !== 'approved') {
+          document.getElementById('pendingFacility').textContent = currentRecruiter.facilityName || '-';
+          document.getElementById('pendingUTR').textContent = currentRecruiter.utrNumber || 'Not submitted';
+          showScreen('pendingScreen');
+          return;
+        }
+        
+        // Load dashboard
+        loadDashboard();
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        let msg = 'Login failed. Please check your credentials.';
+        if (error.code === 'auth/user-not-found') msg = 'No account found with this email';
+        if (error.code === 'auth/wrong-password') msg = 'Incorrect password';
+        if (error.code === 'auth/invalid-email') msg = 'Invalid email address';
+        if (error.code === 'auth/too-many-requests') msg = 'Too many attempts. Try again later.';
+        toast(msg, 'error');
+        btn.disabled = false;
+        btn.textContent = 'Login to Dashboard';
+      }
+    });
+    
+    // Load Dashboard
+    async function loadDashboard() {
+      // Update UI
+      document.getElementById('userName').textContent = currentRecruiter.contactName || 'Recruiter';
+      document.getElementById('userFacility').textContent = currentRecruiter.facilityName || '';
+      document.getElementById('userStatus').textContent = 'Active';
+      
+      // Update profile
+      document.getElementById('profileFacility').value = currentRecruiter.facilityName || '';
+      document.getElementById('profileContact').value = currentRecruiter.contactName || '';
+      document.getElementById('profileEmail').value = currentRecruiter.email || '';
+      document.getElementById('profilePhone').value = currentRecruiter.phone || '';
+      document.getElementById('profileLocation').value = currentRecruiter.location || '';
+      document.getElementById('profileStatus').value = 'Active - Verified';
+      
+      showScreen('dashboard');
+      
+      // Load data
+      await loadJobs();
+      await loadCandidates();
+      updateStats();
+    }
+    
+    // Load Jobs
+    async function loadJobs() {
+      try {
+        const snap = await db.collection('jobs')
+          .where('recruiterId', '==', currentRecruiter.id)
+          .orderBy('createdAt', 'desc')
+          .get();
+        
+        jobs = [];
+        snap.forEach(d => jobs.push({ id: d.id, ...d.data() }));
+        
+        document.getElementById('jobCount').textContent = jobs.length;
+        renderJobs();
+      } catch (e) {
+        console.error('Load jobs error:', e);
+      }
+    }
+    
+    // Load Candidates (Matches)
+    async function loadCandidates() {
+      try {
+        const snap = await db.collection('matches')
+          .where('recruiterId', '==', currentRecruiter.id)
+          .orderBy('createdAt', 'desc')
+          .get();
+        
+        candidates = [];
+        snap.forEach(d => candidates.push({ id: d.id, ...d.data() }));
+        
+        document.getElementById('candidateCount').textContent = candidates.length;
+        renderCandidates();
+        renderRecentCandidates();
+      } catch (e) {
+        console.error('Load candidates error:', e);
+      }
+    }
+    
+    // Update Stats
+    function updateStats() {
+      document.getElementById('totalJobs').textContent = jobs.length;
+      document.getElementById('totalCandidates').textContent = candidates.length;
+      document.getElementById('totalApplications').textContent = candidates.filter(c => c.status === 'applied').length;
+      document.getElementById('totalHired').textContent = candidates.filter(c => c.status === 'hired').length;
+    }
+    
+    // Render Jobs
+    function renderJobs() {
+      const table = document.getElementById('jobsTable');
+      if (!jobs.length) {
+        table.innerHTML = '<tr><td colspan="6" class="empty">No jobs posted yet. Click "Post New Job" to get started!</td></tr>';
+        return;
+      }
+      
+      table.innerHTML = jobs.map(j => `
+        <tr>
+          <td><strong>${j.jobTitle || 'N/A'}</strong></td>
+          <td>${j.department || 'N/A'}</td>
+          <td>${j.location || currentRecruiter.location || 'N/A'}</td>
+          <td>${candidates.filter(c => c.jobId === j.id).length}</td>
+          <td><span class="badge badge-${j.status === 'active' ? 'success' : 'warning'}">${j.status || 'Active'}</span></td>
+          <td>
+            <button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;" onclick="viewJobCandidates('${j.id}')">View</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    // Render Candidates
+    function renderCandidates() {
+      const list = document.getElementById('candidatesList');
+      if (!candidates.length) {
+        list.innerHTML = '<div class="empty" style="background: white; padding: 40px; border-radius: 12px;">No matched candidates yet. Post a job to get AI-matched candidates!</div>';
+        return;
+      }
+      
+      list.innerHTML = candidates.map(c => {
+        const scoreClass = (c.matchScore || 0) >= 80 ? 'match-high' : 'match-medium';
+        return `
+          <div class="candidate-card">
+            <div class="candidate-header">
+              <div>
+                <div class="candidate-name">${c.candidateName || 'Candidate'}</div>
+                <div class="candidate-role">${c.jobRole || 'Nurse'}</div>
+              </div>
+              <span class="match-score ${scoreClass}">${c.matchScore || 75}% Match</span>
+            </div>
+            <div class="candidate-details">
+              <div class="candidate-detail"><strong>Experience:</strong> ${c.experience || 'N/A'}</div>
+              <div class="candidate-detail"><strong>Location:</strong> ${c.location || 'N/A'}</div>
+              <div class="candidate-detail"><strong>Phone:</strong> ${c.phone || 'N/A'}</div>
+              <div class="candidate-detail"><strong>Email:</strong> ${c.email || 'N/A'}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Render Recent Candidates
+    function renderRecentCandidates() {
+      const table = document.getElementById('recentCandidatesTable');
+      const recent = candidates.slice(0, 5);
+      
+      if (!recent.length) {
+        table.innerHTML = '<tr><td colspan="5" class="empty">No candidates yet. Post a job to get matched!</td></tr>';
+        return;
+      }
+      
+      table.innerHTML = recent.map(c => {
+        const scoreClass = (c.matchScore || 0) >= 80 ? 'success' : 'warning';
+        return `
+          <tr>
+            <td><strong>${c.candidateName || 'Candidate'}</strong></td>
+            <td>${c.jobRole || 'Nurse'}</td>
+            <td>${c.experience || 'N/A'}</td>
+            <td><span class="badge badge-${scoreClass}">${c.matchScore || 75}%</span></td>
+            <td><span class="badge badge-primary">${c.status || 'Matched'}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+    
+    // Navigation
+    document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+      link.onclick = () => showSection(link.dataset.section);
+    });
+    
+    function showSection(sectionId) {
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      document.querySelector(`[data-section="${sectionId}"]`)?.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(sectionId)?.classList.add('active');
+    }
+    
+    // Modals
+    function openPostJobModal() {
+      document.getElementById('postJobModal').classList.add('active');
+    }
+    
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+    
+    // Post Job
+    async function submitJob() {
+      const title = document.getElementById('jobTitle').value;
+      const dept = document.getElementById('jobDepartment').value;
+      const salary = document.getElementById('jobSalary').value;
+      const desc = document.getElementById('jobDescription').value;
+      
+      if (!title || !dept) {
+        toast('Please fill required fields', 'error');
+        return;
+      }
+      
+      try {
+        await db.collection('jobs').add({
+          recruiterId: currentRecruiter.id,
+          recruiterName: currentRecruiter.facilityName,
+          jobTitle: title,
+          department: dept,
+          salary: salary,
+          description: desc,
+          location: currentRecruiter.location,
+          status: 'active',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        toast('Job posted successfully!', 'success');
+        closeModal('postJobModal');
+        document.getElementById('postJobForm').reset();
+        loadJobs();
+      } catch (e) {
+        console.error('Post job error:', e);
+        toast('Failed to post job', 'error');
+      }
+    }
+    
+    function viewJobCandidates(jobId) {
+      showSection('candidates');
+    }
+    
+    // Logout - Clear session
+    function logout() {
+      sessionStorage.removeItem('recruiterId');
+      sessionStorage.removeItem('recruiterEmail');
+      auth.signOut().then(() => {
+        window.location.href = 'index.html';
+      }).catch(() => {
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
+</html>
