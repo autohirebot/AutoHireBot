@@ -228,13 +228,13 @@ We partner with nursing colleges across India for FREE campus placements.
 
 ## 📄 License
 
-This project is proprietary software owned by **Smart Kids India Innovations Pvt. Ltd.**
+This project is proprietary software owned by **x VIRUS LAB**
 
 ---
 
 ## 👨‍💻 About
 
-Built with ❤️ by **Smart Kids India Innovations Pvt. Ltd.**
+Built with ❤️ by **X IRUS LAB.**
 
 **AutoHireBot** - Connecting Healthcare Professionals with Hospitals Across India 🇮🇳
 
