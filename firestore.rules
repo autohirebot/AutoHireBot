@@ -1,0 +1,119 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper: check if user is admin
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Helper: check if user owns the document
+    function isOwner(docId) {
+      return request.auth != null && request.auth.uid == docId;
+    }
+
+    // Job Seekers: create public (registration), read/update own or admin
+    match /jobSeekers/{docId} {
+      allow create: if true;
+      allow read: if isOwner(docId) || isAdmin();
+      allow update: if isOwner(docId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Recruiters: create public (registration), read/update own or admin
+    match /recruiters/{docId} {
+      allow create: if true;
+      allow read: if isOwner(docId) || isAdmin();
+      allow update: if isOwner(docId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Jobs: public read, create/update by owner recruiter or admin
+    match /jobs/{docId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null &&
+        (resource.data.recruiterId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Matches: read by involved parties only
+    match /matches/{docId} {
+      allow read: if request.auth != null &&
+        (resource.data.seekerId == request.auth.uid ||
+         resource.data.recruiterId == request.auth.uid ||
+         isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Admins: self-read only
+    match /admins/{docId} {
+      allow read: if isOwner(docId);
+      allow write: if false;
+    }
+
+    // OTPs: server-only
+    match /otps/{docId} {
+      allow read, write: if false;
+    }
+
+    // Payment logs: create public (payment submission), read by admin
+    match /paymentLogs/{docId} {
+      allow create: if true;
+      allow read: if isAdmin();
+      allow update: if isAdmin();
+    }
+
+    // Carebot memory: user own data only
+    match /carebotMemory/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == docId;
+    }
+
+    // Match feedback: authenticated create, admin read
+    match /matchFeedback/{docId} {
+      allow create: if request.auth != null;
+      allow read: if isAdmin();
+    }
+
+    // Payment orders: server-managed, authenticated read
+    match /paymentOrders/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // WhatsApp logs: server-only
+    match /whatsappLogs/{docId} {
+      allow read, write: if false;
+    }
+
+    // Embeddings: server-managed
+    match /embeddings/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Interviews: recruiter creates, involved parties read
+    match /interviews/{docId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null;
+    }
+
+    // Pipeline history: server-managed
+    match /pipelineHistory/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Candidate notes: recruiter own notes only
+    match /candidateNotes/{docId} {
+      allow read: if request.auth != null && resource.data.recruiterId == request.auth.uid;
+      allow create: if request.auth != null;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

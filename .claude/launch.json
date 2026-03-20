@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "firebase-emulators",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Administrator/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js", "emulators:start"],
+      "port": 5000
+    },
+    {
+      "name": "firebase-functions-only",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Administrator/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js", "emulators:start", "--only", "functions"],
+      "port": 5001
+    }
+  ]
+}

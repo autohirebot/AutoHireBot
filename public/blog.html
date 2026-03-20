@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- SEO Meta Tags -->
+  <title>Nursing Career Blog | Tips, Salary Guide & Job Updates - AutoHireBot</title>
+  <meta name="description" content="Expert nursing career advice, salary guides, interview tips, and latest job updates for nurses in India. Free resources for GNM, BSc Nursing, ANM professionals.">
+  <meta name="keywords" content="nursing blog, nursing career tips, nurse salary India, nursing interview tips, healthcare careers, nursing jobs blog">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://autohirebot.com/blog.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://autohirebot.com/blog.html">
+  <meta property="og:title" content="Nursing Career Blog - AutoHireBot">
+  <meta property="og:description" content="Expert nursing career advice, salary guides, and job tips for nurses in India.">
+  <meta property="og:image" content="https://autohirebot.com/og-image.png">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SNFRB7RRX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7SNFRB7RRX');
+  </script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(8, 145, 178, 0.2);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0891b2;
+      text-decoration: none;
+    }
+
+    .logo span { color: #e2e8f0; }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: #0891b2; }
+
+    .btn-register {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .blog-hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blog-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #0891b2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .blog-hero p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 2rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      background: rgba(8, 145, 178, 0.1);
+      border: 1px solid rgba(8, 145, 178, 0.3);
+      color: #22d3ee;
+      padding: 0.5rem 1.25rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: #0891b2;
+      color: white;
+    }
+
+    /* Blog Grid */
+    .blog-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Blog Card */
+    .blog-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(8, 145, 178, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(8, 145, 178, 0.2);
+      border-color: rgba(8, 145, 178, 0.4);
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-category {
+      display: inline-block;
+      background: rgba(8, 145, 178, 0.2);
+      color: #22d3ee;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .blog-excerpt {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    .read-more {
+      color: #0891b2;
+      font-weight: 600;
+    }
+
+    /* New Badge */
+    .new-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Featured Card */
+    .blog-card.featured {
+      border: 2px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+
+    .blog-card.featured:hover {
+      border-color: rgba(245, 158, 11, 0.8);
+      box-shadow: 0 10px 40px rgba(245, 158, 11, 0.25);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(135deg, rgba(8, 145, 178, 0.2), rgba(14, 116, 144, 0.1));
+      border: 1px solid rgba(8, 145, 178, 0.3);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .newsletter h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter p {
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      padding: 1rem 1.5rem;
+      border: 1px solid rgba(8, 145, 178, 0.3);
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
+      font-size: 1rem;
+      width: 300px;
+    }
+
+    .newsletter-form button {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(8, 145, 178, 0.2);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .contact-section p {
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .contact-btn.whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .contact-btn.whatsapp:hover {
+      box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    .contact-btn.email {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      color: white;
+    }
+
+    .contact-btn.email:hover {
+      box-shadow: 0 5px 20px rgba(8, 145, 178, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(8, 145, 178, 0.2);
+      padding: 2rem;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .footer a { color: #0891b2; text-decoration: none; }
+
+    .footer-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-contact {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; gap: 1rem; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .blog-hero h1 { font-size: 1.8rem; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .newsletter-form input { width: 100%; }
+      .contact-buttons { flex-direction: column; }
+      .contact-btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="logo">🏥 Auto<span>HireBot</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/jobs.html">Jobs</a>
+        <a href="/resume/" style="color: #10b981; font-weight: 600;">📄 Resume Builder</a>
+        <a href="/blog.html" class="active">Blog</a>
+        <a href="https://wa.me/919347143100" target="_blank">Contact</a>
+        <a href="/#forms" class="btn-register">Register FREE</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="blog-hero">
+    <h1>Nursing Career Blog</h1>
+    <p>Expert advice, salary guides, interview tips, and career insights for nursing professionals in India</p>
+  </section>
+
+  <!-- Categories -->
+  <div class="categories">
+    <a href="#" class="category-btn active">All Posts</a>
+    <a href="#" class="category-btn">Career Tips</a>
+    <a href="#" class="category-btn">Resume Guide</a>
+    <a href="#" class="category-btn">Salary Guide</a>
+    <a href="#" class="category-btn">Interview Prep</a>
+    <a href="#" class="category-btn">City Jobs</a>
+    <a href="#" class="category-btn">Govt Jobs</a>
+  </div>
+
+  <!-- Blog Grid -->
+  <section class="blog-container">
+    <div class="blog-grid">
+      
+      <!-- FEATURED: Resume Builder Guide -->
+      <a href="/blog/how-to-create-nursing-resume.html" class="blog-card featured">
+        <div class="blog-image" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+          📄
+          <span class="new-badge">⭐ Featured</span>
+        </div>
+        <div class="blog-content">
+          <span class="blog-category" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Resume Guide</span>
+          <h2 class="blog-title">How to Create Perfect Nursing Resume in 2 Minutes - FREE AI Builder</h2>
+          <p class="blog-excerpt">Create a professional nursing resume instantly with our FREE AI-powered builder. 3 templates, 27 nursing skills, 10 certifications. Perfect for GNM, BSc, ANM professionals!</p>
+          <div class="blog-meta">
+            <span>📅 Mar 17, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- NEW: Delhi NCR Jobs -->
+      <a href="/blog/blog-nursing-jobs-delhi.html" class="blog-card">
+        <div class="blog-image" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+          🏙️
+          <span class="new-badge">🔥 New</span>
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Delhi NCR Jobs</span>
+          <h2 class="blog-title">Nursing Jobs in Delhi NCR 2026: 1000+ Vacancies & Top Hospitals</h2>
+          <p class="blog-excerpt">Find nursing jobs in Max, Fortis, Apollo, Medanta, AIIMS Delhi. Salary up to ₹70,000. Complete guide with hospital list and how to apply.</p>
+          <div class="blog-meta">
+            <span>📅 Mar 3, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- NEW: AIIMS Recruitment -->
+      <a href="/blog/blog-aiims-nursing-recruitment.html" class="blog-card">
+        <div class="blog-image" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+          🏛️
+          <span class="new-badge">🔥 New</span>
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Government Jobs</span>
+          <h2 class="blog-title">AIIMS Nursing Recruitment 2026: Eligibility, Salary ₹85,000 & How to Apply</h2>
+          <p class="blog-excerpt">Complete guide to AIIMS nursing officer recruitment. Eligibility criteria, exam pattern, syllabus, salary structure and application process.</p>
+          <div class="blog-meta">
+            <span>📅 Mar 3, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- NEW: Hyderabad Jobs -->
+      <a href="/blog/blog-nursing-jobs-hyderabad.html" class="blog-card">
+        <div class="blog-image" style="background: linear-gradient(135deg, #10b981, #059669);">
+          🏥
+          <span class="new-badge">🔥 New</span>
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Hyderabad Jobs</span>
+          <h2 class="blog-title">Nursing Jobs in Hyderabad 2026: 500+ Vacancies, Salary & Top Hospitals</h2>
+          <p class="blog-excerpt">Find nursing jobs in Apollo, KIMS, Yashoda, Care hospitals Hyderabad. Salary ₹25,000-₹60,000. Top 10 hospitals hiring now.</p>
+          <div class="blog-meta">
+            <span>📅 Mar 3, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Blog Post 1 - Staff Nurse Salary -->
+      <a href="/blog/blog-staff-nurse-salary-india.html" class="blog-card">
+        <div class="blog-image">💰</div>
+        <div class="blog-content">
+          <span class="blog-category">Salary Guide</span>
+          <h2 class="blog-title">Staff Nurse Salary in India 2026: Complete Guide by City & Hospital Type</h2>
+          <p class="blog-excerpt">Discover how much nurses earn in India. Detailed salary breakdown for government hospitals, private hospitals, and nursing homes across major cities.</p>
+          <div class="blog-meta">
+            <span>📅 Jan 10, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Blog Post 2 - Interview Questions -->
+      <a href="/blog/blog-nursing-interview-questions.html" class="blog-card">
+        <div class="blog-image">🎯</div>
+        <div class="blog-content">
+          <span class="blog-category">Interview Prep</span>
+          <h2 class="blog-title">50 Nursing Interview Questions & Answers for 2026</h2>
+          <p class="blog-excerpt">Ace your nursing interview with these commonly asked questions. Includes sample answers for fresher and experienced nurses.</p>
+          <div class="blog-meta">
+            <span>📅 Jan 8, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Blog Post 3 - GNM vs BSc -->
+      <a href="/blog/blog-gnm-vs-bsc-nursing.html" class="blog-card">
+        <div class="blog-image">📚</div>
+        <div class="blog-content">
+          <span class="blog-category">Comparisons</span>
+          <h2 class="blog-title">GNM vs BSc Nursing: Which is Better for Your Career?</h2>
+          <p class="blog-excerpt">Detailed comparison of GNM and BSc Nursing courses. Duration, fees, job opportunities, salary differences, and career growth prospects.</p>
+          <div class="blog-meta">
+            <span>📅 Jan 4, 2026</span>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+      <h2>📬 Get Career Tips in Your Inbox</h2>
+      <p>Subscribe to receive weekly nursing job alerts, salary updates, and career advice</p>
+      <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
+        <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe FREE</button>
+      </form>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section" id="contact">
+      <h2>📞 Contact Us</h2>
+      <p>Have questions? Reach out to us via WhatsApp or Email</p>
+      <div class="contact-buttons">
+        <a href="https://wa.me/919347143100?text=Hi%20AutoHireBot!%20I%20have%20a%20question." target="_blank" class="contact-btn whatsapp">
+          <span>📱</span> WhatsApp: +91 93471 43100
+        </a>
+        <a href="#" onclick="window.location='mai'+'lto:'+'admin'+'@'+'autohirebot.com'; return false;" class="contact-btn email">
+          <span>📧</span> Email: <span class="__cf_email__" data-cfemail="80e1e4ede9eec0e1f5f4efe8e9f2e5e2eff4aee3efed">[email&#160;protected]</span>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 <a href="/">AutoHireBot</a> | AI-Powered Healthcare Recruitment</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/jobs.html">Jobs</a>
+      <a href="/blog.html">Blog</a>
+      <a href="https://github.com/autohirebot/AutoHireBot" target="_blank">GitHub</a>
+    </div>
+    <div class="footer-contact">
+      <a href="https://wa.me/919347143100" target="_blank">📱 WhatsApp</a>
+      <a href="#" onclick="window.location='mai'+'lto:'+'admin'+'@'+'autohirebot.com'; return false;">📧 <span class="__cf_email__" data-cfemail="bddcd9d0d4d3fddcc8c9d2d5d4cfd8dfd2c993ded2d0">[email&#160;protected]</span></a>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    function subscribeNewsletter(e) {
+      e.

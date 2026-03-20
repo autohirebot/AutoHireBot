@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoHireBot - Link Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #0e7490;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        .btn-check {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(8, 145, 178, 0.4);
+        }
+        .btn-check:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .section-title {
+            background: #f1f5f9;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 20px 0 15px;
+            font-weight: 600;
+            color: #334155;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            gap: 15px;
+        }
+        .link-item:last-child {
+            border-bottom: none;
+        }
+        .status-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .status-ok {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        .status-error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .link-url {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+        .link-url a {
+            color: #0891b2;
+            text-decoration: none;
+        }
+        .link-url a:hover {
+            text-decoration: underline;
+        }
+        .link-status {
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+        .link-status.ok {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        .link-status.error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .summary {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .summary-item {
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+        }
+        .summary-item.total {
+            background: #f1f5f9;
+            color: #334155;
+        }
+        .summary-item.ok {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        .summary-item.error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .summary-number {
+            font-size: 36px;
+            font-weight: 700;
+        }
+        .summary-label {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #0891b2, #10b981);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #92400e;
+        }
+        .fix-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        .fix-section h3 {
+            color: #0e7490;
+            margin-bottom: 15px;
+        }
+        .fix-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .fix-item:last-child {
+            border-bottom: none;
+        }
+        .fix-item code {
+            background: #fee2e2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .fix-item .arrow {
+            color: #10b981;
+            margin: 0 10px;
+        }
+        .fix-item code.correct {
+            background: #dcfce7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 AutoHireBot Link Checker</h1>
+        <p class="subtitle">Verify all website links are working properly</p>
+        
+        <button class="btn-check" id="checkBtn" onclick="checkAllLinks()">
+            🚀 Check All Links
+        </button>
+        
+        <div class="progress-bar" id="progressBar" style="display: none;">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p class="progress-text" id="progressText" style="display: none;">Checking links...</p>
+        
+        <div class="summary" id="summary" style="display: none;">
+            <div class="summary-item total">
+                <div class="summary-number" id="totalCount">0</div>
+                <div class="summary-label">Total Links</div>
+            </div>
+            <div class="summary-item ok">
+                <div class="summary-number" id="okCount">0</div>
+                <div class="summary-label">Working ✅</div>
+            </div>
+            <div class="summary-item error">
+                <div class="summary-number" id="errorCount">0</div>
+                <div class="summary-label">Broken ❌</div>
+            </div>
+        </div>
+        
+        <div class="results" id="results"></div>
+        
+        <div class="note">
+            <strong>⚠️ Note:</strong> This checker tests if pages exist by attempting to load them. 
+            Some links may show as "error" due to CORS restrictions, but they might still work. 
+            Click on each link to manually verify.
+        </div>
+    </div>
+
+    <script>
+        // All links to check on AutoHireBot
+        const linksToCheck = {
+            "Main Pages": [
+                { url: "/", name: "Homepage" },
+                { url: "/index.html", name: "Homepage (index.html)" },
+                { url: "/jobs.html", name: "Jobs Page" },
+                { url: "/blog.html", name: "Blog Index" },
+                { url: "/recruiter-dashboard.html", name: "Recruiter Dashboard" },
+                { url: "/sitemap.xml", name: "Sitemap" }
+            ],
+            "Blog Posts (Current Structure)": [
+                { url: "/blog/blog-gnm-vs-bsc-nursing.html", name: "GNM vs BSc Nursing" },
+                { url: "/blog/blog-nursing-interview-questions.html", name: "Nursing Interview Questions" },
+                { url: "/blog/blog-staff-nurse-salary-india.html", name: "Staff Nurse Salary India" }
+            ],
+            "Blog Posts (Alternative Paths - Check if these exist)": [
+                { url: "/blog/gnm-vs-bsc-nursing.html", name: "GNM vs BSc (alt)" },
+                { url: "/blog/nursing-interview-questions.html", name: "Interview Questions (alt)" },
+                { url: "/blog/staff-nurse-salary-india.html", name: "Salary India (alt)" }
+            ],
+            "Possible Wrong Links": [
+                { url: "/gnm-vs-bsc-nursing.html", name: "GNM vs BSc (root)" },
+                { url: "/nursing-interview-questions.html", name: "Interview (root)" },
+                { url: "/staff-nurse-salary-india.html", name: "Salary (root)" }
+            ]
+        };
+
+        let results = { total: 0, ok: 0, error: 0 };
+
+        async function checkLink(url) {
+            try {
+                const response = await fetch(url, { 
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                // With no-cors, we can't check status, so we'll try another method
+                return { status: 'unknown', url };
+            } catch (error) {
+                return { status: 'error', url, error: error.message };
+            }
+        }
+
+        async function checkLinkWithImage(url) {
+            return new Promise((resolve) => {
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                const timeout = setTimeout(() => {
+                    document.body.removeChild(iframe);
+                    resolve({ status: 'timeout', url });
+                }, 5000);
+
+                iframe.onload = () => {
+                    clearTimeout(timeout);
+                    document.body.removeChild(iframe);
+                    resolve({ status: 'ok', url });
+                };
+
+                iframe.onerror = () => {
+                    clearTimeout(timeout);
+                    document.body.removeChild(iframe);
+                    resolve({ status: 'error', url });
+                };
+
+                iframe.src = url;
+            });
+        }
+
+        async function checkAllLinks() {
+            const btn = document.getElementById('checkBtn');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const summary = document.getElementById('summary');
+            const resultsDiv = document.getElementById('results');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Checking...';
+            progressBar.style.display = 'block';
+            progressText.style.display = 'block';
+            resultsDiv.innerHTML = '';
+            results = { total: 0, ok: 0, error: 0 };
+
+            const baseUrl = window.location.origin;
+            let allLinks = [];
+            
+            // Flatten all links
+            for (const [section, links] of Object.entries(linksToCheck)) {
+                for (const link of links) {
+                    allLinks.push({ ...link, section });
+                }
+            }
+
+            results.total = allLinks.length;
+            let checked = 0;
+            let sectionResults = {};
+
+            for (const link of allLinks) {
+                const fullUrl = baseUrl + link.url;
+                
+                // Try to fetch the link
+                let status = 'pending';
+                try {
+                    const response = await fetch(fullUrl, { method: 'GET' });
+                    status = response.ok ? 'ok' : 'error';
+                } catch (e) {
+                    status = 'error';
+                }
+
+                if (status === 'ok') {
+                    results.ok++;
+                } else {
+                    results.error++;
+                }
+
+                // Group by section
+                if (!sectionResults[link.section]) {
+                    sectionResults[link.section] = [];
+                }
+                sectionResults[link.section].push({
+                    ...link,
+                    fullUrl,
+                    status
+                });
+
+                checked++;
+                const progress = (checked / allLinks.length) * 100;
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `Checking ${checked} of ${allLinks.length} links...`;
+            }
+
+            // Display results
+            for (const [section, links] of Object.entries(sectionResults)) {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.innerHTML = `<div class="section-title">${section}</div>`;
+                
+                for (const link of links) {
+                    const statusClass = link.status === 'ok' ? 'ok' : 'error';
+                    const statusIcon = link.status === 'ok' ? '✅' : '❌';
+                    const statusText = link.status === 'ok' ? 'OK' : 'Not Found';
+                    
+                    sectionDiv.innerHTML += `
+                        <div class="link-item">
+                            <div class="status-icon status-${statusClass}">${statusIcon}</div>
+                            <div class="link-url">
+                                <a href="${link.fullUrl}" target="_blank">${link.name}</a>
+                                <br><small style="color: #94a3b8;">${link.url}</small>
+                            </div>
+                            <span class="link-status ${statusClass}">${statusText}</span>
+                        </div>
+                    `;
+                }
+                
+                resultsDiv.appendChild(sectionDiv);
+            }
+
+            // Update summary
+            document.getElementById('totalCount').textContent = results.total;
+            document.getElementById('okCount').textContent = results.ok;
+            document.getElementById('errorCount').textContent = results.error;
+            summary.style.display = 'flex';
+
+            // Show fix suggestions if there are errors
+            if (results.error > 0) {
+                resultsDiv.innerHTML += `
+                    <div class="fix-section">
+                        <h3>🔧 How to Fix Broken Links</h3>
+                        <p style="margin-bottom: 15px; color: #64748b;">Check if the file names in your blog.html match the actual file names in the blog/ folder:</p>
+                        <div class="fix-item">
+                            <strong>Your blog folder has:</strong><br>
+                            <code class="correct">blog-gnm-vs-bsc-nursing.html</code><br>
+                            <code class="correct">blog-nursing-interview-questions.html</code><br>
+                            <code class="correct">blog-staff-nurse-salary-india.html</code>
+                        </div>
+                        <div class="fix-item">
+                            <strong>Links in blog.html should point to:</strong><br>
+                            <code class="correct">/blog/blog-gnm-vs-bsc-nursing.html</code><br>
+                            <code class="correct">/blog/blog-nursing-interview-questions.html</code><br>
+                            <code class="correct">/blog/blog-staff-nurse-salary-india.html</code>
+                        </div>
+                    </div>
+                `;
+            }
+
+            progressText.textContent = '✅ Check complete!';
+            btn.disabled = false;
+            btn.textContent = '🔄 Check Again';
+        }
+    </script>
+</body>
+</html>

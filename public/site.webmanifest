@@ -1,0 +1,59 @@
+{
+  "name": "AutoHireBot - Nursing Jobs India",
+  "short_name": "AutoHireBot",
+  "description": "AI-powered nursing jobs and healthcare recruitment platform. Find nursing jobs in India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060912",
+  "theme_color": "#0891b2",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-IN",
+  "categories": ["business", "medical", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Find Nursing Jobs",
+      "short_name": "Jobs",
+      "description": "Search and apply for nursing jobs",
+      "url": "/#forms",
+      "icons": [{ "src": "/icon-jobs.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Post a Job",
+      "short_name": "Recruit",
+      "description": "Post nursing job openings",
+      "url": "/#forms",
+      "icons": [{ "src": "/icon-recruit.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

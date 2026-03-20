@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Career Blog - AutoHireBot</title>
+    <meta name="description" content="Career guides, salary information, and interview tips for nursing professionals in India. GNM, BSc Nursing, ANM career resources.">
+    <meta name="keywords" content="nursing blog, nursing career, GNM vs BSc, nursing salary, nursing interview, staff nurse jobs India">
+    <link rel="canonical" href="https://autohirebot.com/blog/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Nursing Career Blog - AutoHireBot">
+    <meta property="og:description" content="Career guides and resources for nursing professionals in India">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://autohirebot.com/blog/">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .nav a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0e7490, #0891b2);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .section-title {
+            font-size: 28px;
+            color: #0e7490;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .blog-image {
+            height: 180px;
+            background: linear-gradient(135deg, #0891b2, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        .blog-content {
+            padding: 25px;
+        }
+        .blog-category {
+            display: inline-block;
+            background: #ecfeff;
+            color: #0891b2;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .blog-title {
+            font-size: 20px;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .blog-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .blog-title a:hover {
+            color: #0891b2;
+        }
+        .blog-excerpt {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .read-more {
+            display: inline-block;
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .read-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(8, 145, 178, 0.3);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .cta-section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .cta-section p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #0891b2;
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .footer a {
+            color: #0891b2;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav a {
+                margin: 0 15px;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">🏥 AutoHireBot</a>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/jobs.html">Jobs</a>
+                <a href="/blog.html">Blog</a>
+                <a href="/recruiter-dashboard.html">Recruiters</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <h1>📚 Nursing Career Blog</h1>
+        <p>Expert guides, salary insights, and interview tips to advance your nursing career in India</p>
+    </section>
+    
+    <!-- Blog Posts -->
+    <div class="container">
+        <h2 class="section-title">Latest Articles</h2>
+        
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <article class="blog-card">
+                <div class="blog-image">🎓</div>
+                <div class="blog-content">
+                    <span class="blog-category">Education</span>
+                    <h3 class="blog-title">
+                        <a href="/blog/blog-gnm-vs-bsc-nursing.html">GNM vs BSc Nursing: Which Course is Right for You?</a>
+                    </h3>
+                    <p class="blog-excerpt">
+                        Complete comparison of GNM and BSc Nursing courses in India - duration, eligibility, fees, career scope, and salary differences.
+                    </p>
+                    <div class="blog-meta">
+                        <span>📅 January 2026</span>
+                        <a href="/blog/blog-gnm-vs-bsc-nursing.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 2 -->
+            <article class="blog-card">
+                <div class="blog-image">💼</div>
+                <div class="blog-content">
+                    <span class="blog-category">Interview Tips</span>
+                    <h3 class="blog-title">
+                        <a href="/blog/blog-nursing-interview-questions.html">Top 50 Nursing Interview Questions & Answers</a>
+                    </h3>
+                    <p class="blog-excerpt">
+                        Prepare for your nursing interview with commonly asked questions, best answers, and tips to impress hospital recruiters.
+                    </p>
+                    <div class="blog-meta">
+                        <span>📅 January 2026</span>
+                        <a href="/blog/blog-nursing-interview-questions.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <div class="blog-image">💰</div>
+                <div class="blog-content">
+                    <span class="blog-category">Salary Guide</span>
+                    <h3 class="blog-title">
+                        <a href="/blog/blog-staff-nurse-salary-india.html">Staff Nurse Salary in India 2026: Complete Guide</a>
+                    </h3>
+                    <p class="blog-excerpt">
+                        Detailed breakdown of staff nurse salaries across India - government vs private, state-wise comparison, and how to increase your earnings.
+                    </p>
+                    <div class="blog-meta">
+                        <span>📅 January 2026</span>
+                        <a href="/blog/blog-staff-nurse-salary-india.html" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>🚀 Ready to Find Your Dream Nursing Job?</h2>
+        <p>Join thousands of nursing professionals who found their perfect job through AutoHireBot</p>
+        <a href="/" class="cta-btn">Register Now - It's FREE!</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 AutoHireBot | India's #1 AI-Powered Healthcare Recruitment Platform</p>
+        <p style="margin-top: 10px;">
+            <a href="/">Home</a> • 
+            <a href="/jobs.html">Jobs</a> • 
+            <a href="/blog.html">Blog</a> • 
+            <a href="https://wa.me/919347143100">WhatsApp</a>
+        </p>
+        <p style="margin-top: 15px;">
+            <a href="https://github.com/autohirebot/AutoHireBot" target="_blank">⭐ Star us on GitHub</a>
+        </p>
+    </footer>
+</body>
+</html>

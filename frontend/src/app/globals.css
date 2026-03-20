@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0891b2;
+  --primary-dark: #0e7490;
+  --accent: #8b5cf6;
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
