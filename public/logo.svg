@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0891b2"/>
+      <stop offset="50%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0e7490"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdfa"/>
+      <stop offset="100%" style="stop-color:#ccfbf1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0891b2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Icon: Rounded square with medical cross + AI circuit dots -->
+  <rect x="8" y="14" width="72" height="72" rx="18" fill="url(#iconGrad)" filter="url(#shadow)"/>
+
+  <!-- Medical cross -->
+  <rect x="30" y="32" width="28" height="8" rx="2" fill="url(#crossGrad)"/>
+  <rect x="40" y="22" width="8" height="28" rx="2" fill="url(#crossGrad)"/>
+
+  <!-- AI circuit dots around cross -->
+  <circle cx="24" cy="36" r="3" fill="#99f6e4" opacity="0.9"/>
+  <circle cx="64" cy="36" r="3" fill="#99f6e4" opacity="0.9"/>
+  <circle cx="44" cy="16" r="2.5" fill="#99f6e4" opacity="0.7"/>
+  <circle cx="44" cy="56" r="2.5" fill="#99f6e4" opacity="0.7"/>
+
+  <!-- Connection lines (AI network) -->
+  <line x1="27" y1="36" x2="30" y2="36" stroke="#99f6e4" stroke-width="1.2" opacity="0.6"/>
+  <line x1="58" y1="36" x2="61" y2="36" stroke="#99f6e4" stroke-width="1.2" opacity="0.6"/>
+  <line x1="44" y1="18.5" x2="44" y2="22" stroke="#99f6e4" stroke-width="1.2" opacity="0.6"/>
+  <line x1="44" y1="50" x2="44" y2="53.5" stroke="#99f6e4" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- Small person silhouette bottom-right of icon -->
+  <circle cx="62" cy="60" r="4" fill="#ccfbf1" opacity="0.8"/>
+  <path d="M56 72 Q62 66 68 72" stroke="#ccfbf1" stroke-width="2" fill="none" opacity="0.8"/>
+
+  <!-- Brand Name -->
+  <text x="96" y="45" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-weight="800" font-size="32" fill="#e2e8f0">
+    Auto<tspan fill="url(#logoGrad)">Hire</tspan>Bot
+  </text>
+
+  <!-- Tagline -->
+  <text x="96" y="68" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-weight="500" font-size="12.5" fill="#94a3b8" letter-spacing="2.5">
+    AI-POWERED HEALTHCARE RECRUITMENT
+  </text>
+
+  <!-- Subtle accent line under tagline -->
+  <rect x="96" y="74" width="60" height="2" rx="1" fill="url(#logoGrad)" opacity="0.6"/>
+</svg>
