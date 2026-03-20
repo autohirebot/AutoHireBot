@@ -64,6 +64,8 @@ node_modules/
 
 # dotenv environment variables file
 .env
+*.env
+firebase-secrets-backup.env
 
 # dataconnect generated files
 .dataconnect
