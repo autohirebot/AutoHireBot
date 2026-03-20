@@ -1,1 +1,128 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="./favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="./logo192.png"/><link rel="manifest" href="./manifest.json"/><title>React App</title><script defer="defer" src="./static/js/main.cc50dd08.js"></script><link href="./static/css/main.d213a37a.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="icon" href="./favicon.ico"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#0891b2"/>
+  <meta name="description" content="Free Nursing Resume Builder by AutoHireBot. Create a professional healthcare resume in minutes. Templates for Staff Nurse, ICU, Emergency, and more."/>
+  <meta name="keywords" content="nursing resume builder, nurse resume, healthcare CV, free resume builder, AutoHireBot resume, nursing CV template"/>
+  <link rel="canonical" href="https://autohirebot.com/resume/"/>
+  <link rel="apple-touch-icon" href="./logo192.png"/>
+  <link rel="manifest" href="/site.webmanifest"/>
+  <title>Free Nursing Resume Builder | AutoHireBot</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SNFRB7RRX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7SNFRB7RRX');
+  </script>
+
+  <script defer="defer" src="./static/js/main.cc50dd08.js"></script>
+  <link href="./static/css/main.d213a37a.css" rel="stylesheet"/>
+
+  <style>
+    /* Back to AutoHireBot navigation bar */
+    .back-to-home {
+      background: linear-gradient(135deg, #0e7490, #0891b2);
+      padding: 8px 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      position: relative;
+      z-index: 200;
+    }
+    .back-to-home a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .back-to-home a:hover {
+      opacity: 1;
+    }
+    .back-nav-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+    .back-nav-links a {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+    .back-nav-links a:hover {
+      opacity: 1;
+    }
+    .back-arrow {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* Make the header brand clickable */
+    .header-brand {
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .back-nav-links {
+        display: none;
+      }
+      .back-to-home {
+        padding: 8px 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to AutoHireBot navigation -->
+  <div class="back-to-home">
+    <a href="https://autohirebot.com/">
+      <span class="back-arrow">&larr;</span> Back to AutoHireBot
+    </a>
+    <div class="back-nav-links">
+      <a href="https://autohirebot.com/jobs">Browse Jobs</a>
+      <a href="https://autohirebot.com/register/seeker">Register Free</a>
+      <a href="https://autohirebot.com/blog/">Career Blog</a>
+    </div>
+  </div>
+
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+  <!-- Make header brand clickable to go back to home -->
+  <script>
+    // Wait for React to render, then make the brand logo clickable
+    function makeBrandClickable() {
+      const brand = document.querySelector('.header-brand');
+      if (brand) {
+        brand.style.cursor = 'pointer';
+        brand.title = 'Go back to AutoHireBot';
+        brand.addEventListener('click', function(e) {
+          // Don't navigate if clicking on a button inside the header
+          if (e.target.closest('button') || e.target.closest('.header-actions')) return;
+          window.location.href = 'https://autohirebot.com/';
+        });
+      }
+    }
+    // Try immediately, and also after a delay for React hydration
+    setTimeout(makeBrandClickable, 500);
+    setTimeout(makeBrandClickable, 1500);
+
+    // Also observe DOM changes in case React re-renders
+    const observer = new MutationObserver(function() {
+      makeBrandClickable();
+    });
+    observer.observe(document.getElementById('root'), { childList: true, subtree: false });
+  </script>
+</body>
+</html>
