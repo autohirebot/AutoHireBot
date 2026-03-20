@@ -304,9 +304,9 @@ exports.sendStatusUpdate = async function(phone, name, position, hospital, statu
  */
 exports.whatsappWebhook = functions
   .runWith({
-    secrets: [WHATSAPP_TOKEN],
-    memory: '256MB',
-    timeoutSeconds: 30
+    secrets: [WHATSAPP_TOKEN, WHATSAPP_PHONE_ID],
+    memory: '512MB',
+    timeoutSeconds: 60
   })
   .https.onRequest(async (req, res) => {
     // Webhook verification (GET request from Meta)
@@ -338,6 +338,11 @@ exports.whatsappWebhook = functions
 
         const entries = body.entry || [];
         const db = admin.firestore();
+        const phoneId = WHATSAPP_PHONE_ID.value();
+        const token = WHATSAPP_TOKEN.value();
+
+        // Lazy-load bot module
+        const whatsappBot = require('./whatsapp-bot');
 
         for (const entry of entries) {
           const changes = entry.changes || [];
@@ -359,7 +364,7 @@ exports.whatsappWebhook = functions
               }
             }
 
-            // Handle incoming messages
+            // Handle incoming messages via conversational bot
             if (value.messages) {
               for (const message of value.messages) {
                 const from = message.from;
@@ -377,37 +382,20 @@ exports.whatsappWebhook = functions
                   createdAt: admin.firestore.FieldValue.serverTimestamp()
                 });
 
-                // Auto-reply for common queries
-                const lowerMsg = msgBody.toLowerCase();
-                let autoReply = null;
-
-                if (lowerMsg.includes('hi') || lowerMsg.includes('hello') || lowerMsg.includes('hey')) {
-                  autoReply = 'Welcome to AutoHireBot! We help nurses find the best hospital jobs across India. Visit https://autohirebot.com to register for FREE and get AI-matched with jobs.';
-                } else if (lowerMsg.includes('register') || lowerMsg.includes('sign up')) {
-                  autoReply = 'Registration is FREE for job seekers! Visit https://autohirebot.com, click "Register as Job Seeker", and our AI will match you with the best jobs in minutes.';
-                } else if (lowerMsg.includes('job') || lowerMsg.includes('vacancy')) {
-                  autoReply = 'We have nursing jobs across India - ICU, OT, Emergency, General Ward and more. Register at https://autohirebot.com to see AI-matched opportunities.';
-                } else if (lowerMsg.includes('salary') || lowerMsg.includes('pay')) {
-                  autoReply = 'Nursing salaries range from Rs.15,000 to Rs.60,000/month depending on experience and specialization. Register at https://autohirebot.com to find jobs matching your salary expectations.';
-                } else if (lowerMsg.includes('help') || lowerMsg.includes('support')) {
-                  autoReply = 'Need help? Email us at admin@autohirebot.com or visit https://autohirebot.com. Our AI chatbot Carebot can also answer your questions on the website.';
-                }
-
-                if (autoReply) {
-                  const phoneId = WHATSAPP_PHONE_ID.value();
-                  const token = WHATSAPP_TOKEN.value();
-                  await sendWhatsAppText(phoneId, token, from, autoReply);
-                }
+                // Delegate to conversational bot handler
+                await whatsappBot.handleIncomingMessage(from, message, phoneId, token);
               }
             }
           }
         }
 
+        // Always return 200 to prevent WhatsApp retries
         res.status(200).json({ success: true });
 
       } catch (error) {
         console.error('WhatsApp webhook error:', error);
-        res.status(500).json({ error: 'Processing failed' });
+        // Still return 200 to prevent infinite retries from WhatsApp
+        res.status(200).json({ success: false, error: 'Processing failed' });
       }
 
       return;
@@ -488,7 +476,50 @@ exports.getWhatsAppLogs = functions
     return { success: true, logs };
   });
 
+/**
+ * Send an interactive message (buttons or lists) via WhatsApp Cloud API
+ * @param {string} phoneNumberId - WhatsApp phone number ID
+ * @param {string} accessToken - WhatsApp access token
+ * @param {object} payload - Full message payload (from whatsapp-bot-messages.js builders)
+ */
+async function sendWhatsAppInteractive(phoneNumberId, accessToken, payload) {
+  const fetch = (...args) => import('node-fetch').then(({ default: f }) => f(...args));
+
+  // Ensure phone is formatted
+  if (payload.to) {
+    const formatted = formatPhoneForWhatsApp(payload.to);
+    if (!formatted) return { success: false, error: 'Invalid phone number' };
+    payload.to = formatted;
+  }
+
+  try {
+    const response = await fetch(
+      `${WHATSAPP_API_URL}/${phoneNumberId}/messages`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const result = await response.json();
+    if (!response.ok) {
+      console.error('WhatsApp interactive error:', result);
+      return { success: false, error: result.error?.message || 'Send failed' };
+    }
+
+    return { success: true, messageId: result.messages?.[0]?.id };
+  } catch (error) {
+    console.error('WhatsApp interactive send error:', error.message);
+    return { success: false, error: error.message };
+  }
+}
+
 // Export helper functions for use by other modules
 exports._sendWhatsAppMessage = sendWhatsAppMessage;
 exports._sendWhatsAppText = sendWhatsAppText;
+exports._sendWhatsAppInteractive = sendWhatsAppInteractive;
 exports._formatPhoneForWhatsApp = formatPhoneForWhatsApp;

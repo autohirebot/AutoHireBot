@@ -662,15 +662,27 @@ async function matchJobWithSeekers(jobId) {
       
       if (result.created) {
         matches.push({ seekerId: seeker.id, seekerName: seeker.name, matchScore: scores.totalScore });
-        
+
         if (scores.totalScore >= MATCH_CONFIG.HIGH_MATCH_SCORE && recruiter) {
           await sendSeekerMatchEmail(seeker, job, scores.totalScore);
           await sendRecruiterMatchEmail(recruiter, seeker, job, scores.totalScore);
+
+          // Send WhatsApp interactive alert if user has active session
+          try {
+            const whatsappBot = require('./whatsapp-bot');
+            const phoneId = process.env.WHATSAPP_PHONE_ID || '';
+            const waToken = process.env.WHATSAPP_TOKEN || '';
+            if (phoneId && waToken && seeker.phone) {
+              await whatsappBot.sendJobMatchAlert(seeker.phone, seeker.name, job, scores.totalScore, phoneId, waToken);
+            }
+          } catch (waErr) {
+            console.log('WhatsApp match alert skipped:', waErr.message);
+          }
         }
       }
     }
   }
-  
+
   console.log(`✅ Created ${matches.length} matches for job`);
   return { success: true, matchCount: matches.length, matches };
 }
@@ -1400,3 +1412,6 @@ exports.getRecruiterAnalytics = ats.getRecruiterAnalytics;
 exports.exportCandidates = ats.exportCandidates;
 exports.addCandidateNote = ats.addCandidateNote;
 exports.getCandidateNotes = ats.getCandidateNotes;
+
+// ==================== INTERNAL EXPORTS (for whatsapp-bot module) ====================
+exports._matchSeekerWithJobs = matchSeekerWithJobs;
