@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification-autohirebot',
+    google: 'GJx7XqzPshGfPZkIe4ZyEnPCY-yUwWA-lfrcmMmXNZE',
     // Replace above with your actual Google Search Console verification code
     // Get it from: https://search.google.com/search-console → Add Property → HTML tag method
     other: {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   category: 'healthcare',
   other: {
-    'google-site-verification': 'google-site-verification-autohirebot',
+    'google-site-verification': 'GJx7XqzPshGfPZkIe4ZyEnPCY-yUwWA-lfrcmMmXNZE',
     'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
   },
