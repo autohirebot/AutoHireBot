@@ -1,8 +1,66 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'AutoHireBot - AI-Powered Healthcare Recruitment Platform India',
+  description: 'India\'s #1 AI-powered platform connecting nurses with hospitals. Free for job seekers, AI matching in under 2 minutes. 10,000+ successful matches.',
+  alternates: {
+    canonical: '/',
+  },
+};
+
+const homeJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'AutoHireBot',
+    url: 'https://autohirebot.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://autohirebot.com/jobs?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is AutoHireBot free for job seekers?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, AutoHireBot is completely free for nursing job seekers. Register, get AI-matched, and apply to jobs at no cost.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How does AI matching work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our AI analyzes your qualifications, skills, experience, and preferences to match you with the most suitable nursing jobs using advanced embedding technology and cosine similarity scoring.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What types of nursing jobs are available?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'AutoHireBot lists positions for Staff Nurses, ICU Nurses, Emergency Nurses, OT Nurses, NICU Nurses, and many more specializations across India.',
+        },
+      },
+    ],
+  },
+];
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden px-6 py-24 sm:py-32 lg:px-8">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg-dark)] via-[#1a1a3e] to-[var(--bg-dark)]" />

@@ -3,21 +3,22 @@
 
 User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://autohirebot.com/sitemap.xml
-
-# Disallow admin and sensitive areas
-Disallow: /admin-dashboard.html
-Disallow: /api/
-Disallow: /*.json$
-
-# Allow search engines to crawl everything else
 Allow: /index.html
 Allow: /jobs.html
 Allow: /blog.html
 Allow: /blog/
-Allow: /recruiter-dashboard.html
+Allow: /resume/
 
-# Crawl delay (optional - be nice to servers)
+# Disallow admin, private, and sensitive areas
+Disallow: /admin-dashboard.html
+Disallow: /recruiter-dashboard.html
+Disallow: /admin-matching-analytics.html
+Disallow: /link-checker.html
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://autohirebot.com/sitemap.xml
+
+# Crawl delay
 Crawl-delay: 1
