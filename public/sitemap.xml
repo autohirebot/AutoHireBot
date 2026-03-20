@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Homepage -->
   <url>
     <loc>https://autohirebot.com/</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://autohirebot.com/og-image.svg</image:loc>
+      <image:title>AutoHireBot - AI Healthcare Recruitment Platform India</image:title>
+      <image:caption>AutoHireBot connects nurses with hospitals using AI-powered job matching</image:caption>
+    </image:image>
   </url>
 
   <!-- Jobs Page -->
   <url>
-    <loc>https://autohirebot.com/jobs.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <loc>https://autohirebot.com/jobs</loc>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Job Seeker Registration -->
+  <url>
+    <loc>https://autohirebot.com/register/seeker</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Recruiter Registration -->
+  <url>
+    <loc>https://autohirebot.com/register/recruiter</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
@@ -22,49 +44,27 @@
     <loc>https://autohirebot.com/resume/</loc>
     <lastmod>2026-03-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- Blog Index -->
   <url>
     <loc>https://autohirebot.com/blog/</loc>
-    <lastmod>2026-03-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Blog Listing (alternate) -->
-  <url>
-    <loc>https://autohirebot.com/blog.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Blog Posts -->
   <url>
-    <loc>https://autohirebot.com/blog/blog-nursing-jobs-delhi.html</loc>
-    <lastmod>2026-03-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://autohirebot.com/blog/blog-aiims-nursing-recruitment.html</loc>
-    <lastmod>2026-03-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://autohirebot.com/blog/blog-nursing-jobs-hyderabad.html</loc>
-    <lastmod>2026-03-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
     <loc>https://autohirebot.com/blog/blog-staff-nurse-salary-india.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://autohirebot.com/blog/blog-gnm-vs-bsc-nursing.html</loc>
     <lastmod>2026-03-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -78,8 +78,22 @@
   </url>
 
   <url>
-    <loc>https://autohirebot.com/blog/blog-gnm-vs-bsc-nursing.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <loc>https://autohirebot.com/blog/blog-nursing-jobs-delhi.html</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://autohirebot.com/blog/blog-nursing-jobs-hyderabad.html</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://autohirebot.com/blog/blog-aiims-nursing-recruitment.html</loc>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

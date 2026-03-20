@@ -1,13 +1,24 @@
-# AutoHireBot Robots.txt
+# AutoHireBot - AI Healthcare Recruitment Platform
 # https://autohirebot.com
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
 
 User-agent: *
 Allow: /
 Allow: /index.html
 Allow: /jobs.html
+Allow: /jobs
 Allow: /blog.html
 Allow: /blog/
 Allow: /resume/
+Allow: /register/seeker
+Allow: /register/recruiter
 
 # Disallow admin, private, and sensitive areas
 Disallow: /admin-dashboard.html
@@ -15,10 +26,12 @@ Disallow: /recruiter-dashboard.html
 Disallow: /admin-matching-analytics.html
 Disallow: /link-checker.html
 Disallow: /api/
-Disallow: /*.json$
+Disallow: /_next/
+Disallow: /404.html
 
-# Sitemap
+# Sitemaps
 Sitemap: https://autohirebot.com/sitemap.xml
 
-# Crawl delay
-Crawl-delay: 1
+# IndexNow
+# Key: autohirebot2026indexnow
+# Key location: https://autohirebot.com/autohirebot2026indexnow.txt
