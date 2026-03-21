@@ -2645,30 +2645,6 @@
     @keyframes autofill-highlight { 0% { background-color: rgba(34, 211, 238, 0.3); } 100% { background-color: transparent; } }
     .autofilled { animation: autofill-highlight 2s ease-out; }
 
-    /* ===== VISITOR COUNTER STYLES ===== */
-    .visitor-counter {
-      position: fixed; bottom: 20px; left: 20px;
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(8, 145, 178, 0.3); border-radius: 12px;
-      padding: 12px 18px; display: flex; align-items: center; gap: 10px;
-      z-index: 9997; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.3s ease;
-    }
-
-    .visitor-counter:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(8, 145, 178, 0.2); }
-    .visitor-counter-icon { font-size: 1.4rem; }
-    .visitor-counter-content { display: flex; flex-direction: column; }
-    .visitor-counter-label { font-size: 0.65rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-    .visitor-counter-number { font-size: 1.2rem; font-weight: 700; color: #22d3ee; font-family: 'Space Grotesk', monospace; }
-    .visitor-counter-live { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulse-live 2s infinite; margin-left: 5px; }
-    @keyframes pulse-live { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
-
-    @media (max-width: 480px) {
-      .visitor-counter { bottom: 12px; left: 12px; padding: 8px 12px; }
-      .visitor-counter-icon { font-size: 1.2rem; }
-      .visitor-counter-number { font-size: 1rem; }
-    }
-
   </style>
 </head>
 <body>
@@ -5475,17 +5451,6 @@
   }
 </style>
 
-<!-- ===== VISITOR COUNTER ===== -->
-<div class="visitor-counter" id="visitorCounter">
-  <span class="visitor-counter-icon">👁️</span>
-  <div class="visitor-counter-content">
-    <span class="visitor-counter-label">Total Visitors</span>
-    <div style="display: flex; align-items: center;">
-      <span class="visitor-counter-number" id="visitorCount">---</span>
-      <span class="visitor-counter-live"></span>
-    </div>
-  </div>
-</div>
 
 <!-- ===== WHATSAPP BUTTON ===== -->
 <div class="whatsapp-float">
@@ -5669,100 +5634,6 @@ if (uploadSection) {
 }
 </script>
 
-<!-- ===== VISITOR COUNTER JAVASCRIPT ===== -->
-<script>
-// Robust Visitor Counter with Debug Logging
-(function initVisitorCounter() {
-  console.log('🔢 Visitor Counter: Initializing...');
-  
-  // Wait for Firebase
-  function waitForFirebase(callback, attempts = 0) {
-    if (attempts > 20) {
-      console.error('🔢 Visitor Counter: Firebase not loaded after 10 seconds');
-      document.getElementById('visitorCount').textContent = '1,000+';
-      return;
-    }
-    
-    if (typeof firebase !== 'undefined' && firebase.firestore) {
-      console.log('🔢 Visitor Counter: Firebase ready');
-      callback();
-    } else {
-      console.log('🔢 Visitor Counter: Waiting for Firebase... attempt', attempts + 1);
-      setTimeout(() => waitForFirebase(callback, attempts + 1), 500);
-    }
-  }
-  
-  waitForFirebase(async function() {
-    try {
-      const db = firebase.firestore();
-      console.log('🔢 Visitor Counter: Firestore connected');
-      
-      const counterRef = db.collection('siteStats').doc('visitors');
-      
-      // Check if already visited this session
-      const hasVisited = sessionStorage.getItem('ahb_visited');
-      console.log('🔢 Visitor Counter: Has visited?', hasVisited ? 'Yes' : 'No');
-      
-      // Increment count for new visitors
-      if (!hasVisited) {
-        console.log('🔢 Visitor Counter: New visitor, incrementing...');
-        await counterRef.set({
-          count: firebase.firestore.FieldValue.increment(1),
-          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-        sessionStorage.setItem('ahb_visited', 'true');
-        console.log('🔢 Visitor Counter: Count incremented');
-      }
-      
-      // Get current count
-      console.log('🔢 Visitor Counter: Reading count...');
-      const doc = await counterRef.get();
-      
-      if (doc.exists) {
-        const count = doc.data().count || 0;
-        console.log('🔢 Visitor Counter: Count retrieved =', count);
-        animateCount(count);
-      } else {
-        console.log('🔢 Visitor Counter: Document does not exist, creating...');
-        await counterRef.set({ count: 1, lastUpdated: firebase.firestore.FieldValue.serverTimestamp() });
-        animateCount(1);
-      }
-      
-    } catch (error) {
-      console.error('🔢 Visitor Counter ERROR:', error.message);
-      console.error('🔢 Full error:', error);
-      document.getElementById('visitorCount').textContent = '1,000+';
-    }
-  });
-  
-  function animateCount(finalCount) {
-    const element = document.getElementById('visitorCount');
-    if (!element) {
-      console.error('🔢 Visitor Counter: Element not found!');
-      return;
-    }
-    
-    console.log('🔢 Visitor Counter: Animating to', finalCount);
-    
-    let current = 0;
-    const duration = 1500;
-    const increment = finalCount / (duration / 16);
-    
-    function update() {
-      current += increment;
-      if (current >= finalCount) {
-        element.textContent = finalCount.toLocaleString();
-        console.log('🔢 Visitor Counter: Animation complete');
-      } else {
-        element.textContent = Math.floor(current).toLocaleString();
-        requestAnimationFrame(update);
-      }
-    }
-    
-    requestAnimationFrame(update);
-  }
-})();
-</script>
 
 <!-- SEO: Noscript fallback content for crawlers -->
 <noscript>
