@@ -9,6 +9,43 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+# AI Search & GEO Bots - Allow for citations in AI Overviews, ChatGPT, Perplexity etc.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 User-agent: *
 Allow: /
 Allow: /index.html
@@ -28,6 +65,8 @@ Disallow: /link-checker.html
 Disallow: /api/
 Disallow: /_next/
 Disallow: /404.html
+Disallow: /google-site-verification.html
+Disallow: /firebase-secrets-backup.env
 
 # Sitemaps
 Sitemap: https://autohirebot.com/sitemap.xml

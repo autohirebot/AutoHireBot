@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 
   <!-- Homepage -->
   <url>
     <loc>https://autohirebot.com/</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -15,18 +16,26 @@
     </image:image>
   </url>
 
-  <!-- Jobs Page -->
+  <!-- Jobs Page (Next.js canonical) -->
   <url>
     <loc>https://autohirebot.com/jobs</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Jobs Page (HTML version) -->
+  <url>
+    <loc>https://autohirebot.com/jobs.html</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Job Seeker Registration -->
   <url>
     <loc>https://autohirebot.com/register/seeker</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -34,7 +43,7 @@
   <!-- Recruiter Registration -->
   <url>
     <loc>https://autohirebot.com/register/recruiter</loc>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -42,7 +51,7 @@
   <!-- Resume Builder -->
   <url>
     <loc>https://autohirebot.com/resume/</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -50,50 +59,55 @@
   <!-- Blog Index -->
   <url>
     <loc>https://autohirebot.com/blog/</loc>
-    <lastmod>2026-03-21</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog Posts -->
+  <!-- Blog Post: Staff Nurse Salary -->
   <url>
     <loc>https://autohirebot.com/blog/blog-staff-nurse-salary-india.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Post: GNM vs BSc Nursing -->
   <url>
     <loc>https://autohirebot.com/blog/blog-gnm-vs-bsc-nursing.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Post: Nursing Interview Questions -->
   <url>
     <loc>https://autohirebot.com/blog/blog-nursing-interview-questions.html</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Post: Nursing Jobs Delhi -->
   <url>
     <loc>https://autohirebot.com/blog/blog-nursing-jobs-delhi.html</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Post: Nursing Jobs Hyderabad -->
   <url>
     <loc>https://autohirebot.com/blog/blog-nursing-jobs-hyderabad.html</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Post: AIIMS Nursing Recruitment -->
   <url>
     <loc>https://autohirebot.com/blog/blog-aiims-nursing-recruitment.html</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -109,10 +109,16 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "AutoHireBot",
-    "alternateName": "AutoHireBot Healthcare Recruitment",
+    "alternateName": ["AutoHireBot Healthcare Recruitment", "Auto Hire Bot", "AutoHireBot India"],
     "url": "https://autohirebot.com",
-    "logo": "https://autohirebot.com/logo.png",
-    "description": "AI-powered healthcare recruitment platform connecting nursing professionals with hospitals across India",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://autohirebot.com/logo.svg",
+      "width": 200,
+      "height": 60
+    },
+    "image": "https://autohirebot.com/og-image.svg",
+    "description": "AutoHireBot is India's #1 AI-powered healthcare recruitment platform connecting nursing professionals with 500+ partner hospitals across India. Free for nurses.",
     "foundingDate": "2025",
     "founder": {
       "@type": "Organization",
@@ -122,7 +128,8 @@
       "@type": "ContactPoint",
       "contactType": "customer service",
       "email": "admin@autohirebot.com",
-      "availableLanguage": ["English", "Hindi"]
+      "availableLanguage": ["English", "Hindi"],
+      "areaServed": "IN"
     },
     "sameAs": [
       "https://www.linkedin.com/company/autohirebot",
@@ -132,11 +139,71 @@
     "areaServed": {
       "@type": "Country",
       "name": "India"
+    },
+    "knowsAbout": ["Nursing Recruitment", "Healthcare Jobs", "AI Job Matching", "Hospital Staffing", "GNM Nursing", "BSc Nursing", "Staff Nurse Jobs"],
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 1,
+      "maxValue": 50
     }
   }
   </script>
-  
-  <!-- Structured Data - Website -->
+
+  <!-- Structured Data - EmploymentAgency (LocalBusiness) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EmploymentAgency",
+    "name": "AutoHireBot",
+    "description": "AI-powered nursing job matching platform connecting healthcare professionals with hospitals across India",
+    "url": "https://autohirebot.com",
+    "logo": "https://autohirebot.com/logo.svg",
+    "email": "admin@autohirebot.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN",
+      "addressRegion": "India"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "priceRange": "Free for job seekers",
+    "openingHours": "Mo-Su 00:00-24:00",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Nursing Job Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Job Matching for Nurses",
+            "description": "Free AI-powered job matching connecting nurses with 500+ hospitals in under 2 minutes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hospital Recruitment Solutions",
+            "description": "Smart candidate sourcing and matching for healthcare organizations"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nursing Resume Builder",
+            "description": "Free ATS-optimized resume builder for nursing professionals"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Website with SiteLinksSearchBox -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -144,29 +211,77 @@
     "name": "AutoHireBot",
     "url": "https://autohirebot.com",
     "description": "AI-powered nursing jobs and healthcare recruitment platform in India",
+    "inLanguage": ["en", "hi"],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://autohirebot.com/search?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://autohirebot.com/jobs?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
   </script>
-  
+
+  <!-- Structured Data - HowTo: AI Job Matching Process -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Find Nursing Jobs with AutoHireBot AI",
+    "description": "Get matched with nursing jobs at top hospitals in India in 3 simple steps using AutoHireBot's AI-powered platform.",
+    "totalTime": "PT2M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "INR",
+      "value": "0"
+    },
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Register as a Nurse",
+        "text": "Create your free account on AutoHireBot. Enter your nursing qualification (GNM, BSc Nursing, ANM), specialization, experience, and preferred location.",
+        "url": "https://autohirebot.com/register/seeker"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "AI Matches You Instantly",
+        "text": "Our AI analyzes your profile and matches you with relevant nursing job openings at 500+ partner hospitals across India within 2 minutes.",
+        "url": "https://autohirebot.com/"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Receive Job Offers",
+        "text": "Get real-time email notifications for matched jobs. Review hospital details, salary, and location. Apply directly through AutoHireBot.",
+        "url": "https://autohirebot.com/jobs"
+      }
+    ]
+  }
+  </script>
+
   <!-- Structured Data - Job Posting (Sample) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     "title": "Registered Nurse - Multiple Positions",
-    "description": "Join leading hospitals across India. Positions available for ICU, Emergency, Pediatrics, Surgery, and General nursing. Competitive salary and benefits.",
+    "description": "Join leading hospitals across India. Positions available for ICU, Emergency, Pediatrics, Surgery, and General nursing. Competitive salary and benefits. Apply free via AutoHireBot.",
     "datePosted": "2026-01-01",
     "validThrough": "2026-12-31",
     "employmentType": ["FULL_TIME", "PART_TIME", "CONTRACT"],
+    "jobLocationType": "TELECOMMUTE",
+    "applicantLocationRequirements": {
+      "@type": "Country",
+      "name": "India"
+    },
     "hiringOrganization": {
       "@type": "Organization",
       "name": "AutoHireBot Partner Hospitals",
       "sameAs": "https://autohirebot.com",
-      "logo": "https://autohirebot.com/logo.png"
+      "logo": "https://autohirebot.com/logo.svg"
     },
     "jobLocation": {
       "@type": "Place",
@@ -189,10 +304,11 @@
     "qualifications": "GNM, BSc Nursing, or ANM certification required",
     "skills": "Patient Care, Critical Care, Emergency Response, Medical Equipment Operation",
     "industry": "Healthcare",
-    "occupationalCategory": "29-1141.00 Registered Nurses"
+    "occupationalCategory": "29-1141.00 Registered Nurses",
+    "directApply": true
   }
   </script>
-  
+
   <!-- Structured Data - FAQ -->
   <script type="application/ld+json">
   {
@@ -201,18 +317,10 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How fast are matches delivered?",
+        "name": "How does AutoHireBot find nursing jobs for me?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our AI matches healthcare professionals and job openings in under 2 minutes, sending real-time email notifications to both parties immediately upon finding a match."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my personal data safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. All data is encrypted end-to-end and we are fully HIPAA compliant. Your information is never sold to third parties."
+          "text": "AutoHireBot uses AI-powered job matching to analyze your nursing profile — including qualification (GNM, BSc Nursing, ANM), specialization, experience, and location preference — and instantly matches you with relevant job openings at 500+ partner hospitals across India in under 2 minutes."
         }
       },
       {
@@ -220,7 +328,23 @@
         "name": "Is AutoHireBot free for nurses?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! The platform is completely free for all healthcare job seekers. Register and get matched with hospitals instantly."
+          "text": "Yes, AutoHireBot is completely free for all nursing and healthcare job seekers. Register, get AI-matched with hospitals, and receive job offers at zero cost. Hospitals pay a subscription fee; nurses always register free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What nursing qualifications does AutoHireBot support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AutoHireBot supports all major nursing qualifications including GNM (General Nursing and Midwifery), BSc Nursing, ANM (Auxiliary Nurse Midwife), Post BSc Nursing, and MSc Nursing. Both fresher and experienced nurses can register."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which cities have nursing jobs on AutoHireBot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AutoHireBot has nursing job openings across all major Indian cities including Delhi NCR, Mumbai, Bangalore, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Lucknow, and 50+ more cities. Both government and private hospital jobs are available."
         }
       },
       {
@@ -228,13 +352,37 @@
         "name": "What nursing specialties are supported?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We support all major nursing specialties including ICU/Critical Care, Emergency Room, Medical-Surgical, Pediatrics, Labor & Delivery, Operating Room, Oncology, Cardiology, Geriatrics, and Psychiatric nursing."
+          "text": "We support all major nursing specialties including ICU/Critical Care, Emergency Room (ER), Medical-Surgical, Pediatrics, NICU, Labor and Delivery, Operating Room (OT), Oncology, Cardiology, Dialysis, Geriatrics, and Psychiatric nursing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast are job matches delivered?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our AI matches healthcare professionals with job openings in under 2 minutes of registration, sending real-time email notifications to both the nurse and the hiring hospital immediately upon finding a compatible match."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my personal data safe on AutoHireBot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All personal data on AutoHireBot is encrypted end-to-end using Firebase secure infrastructure. Your information is never sold to third parties, and you have full control over your profile visibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the salary range for nursing jobs in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Staff nurse salaries in India range from ₹20,000 to ₹80,000 per month depending on qualification, experience, specialization, and location. ICU and specialized nurses typically earn ₹35,000-₹80,000/month while freshers start at ₹20,000-₹30,000/month."
         }
       }
     ]
   }
   </script>
-  
+
   <!-- Structured Data - Breadcrumb -->
   <script type="application/ld+json">
   {
@@ -251,18 +399,45 @@
         "@type": "ListItem",
         "position": 2,
         "name": "Nursing Jobs",
-        "item": "https://autohirebot.com/#forms"
+        "item": "https://autohirebot.com/jobs"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "For Recruiters",
-        "item": "https://autohirebot.com/#forms"
+        "name": "Register as Nurse",
+        "item": "https://autohirebot.com/register/seeker"
       }
     ]
   }
   </script>
-  
+
+  <!-- Structured Data - Speakable (GEO: AI-readable key content) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AutoHireBot - AI Nursing Jobs & Healthcare Recruitment India",
+    "url": "https://autohirebot.com/",
+    "description": "AutoHireBot is India's #1 AI-powered nursing job matching platform. Find nursing jobs at 500+ hospitals in India. Free for nurses. AI matches in 2 minutes.",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".hero-title", ".hero-description", ".stats-section", "h1", "h2"]
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Nursing Jobs India",
+      "description": "AI-powered nursing job matching connecting GNM, BSc Nursing, and ANM professionals with hospitals across India"
+    },
+    "mentions": [
+      {"@type": "Thing", "name": "GNM Nursing"},
+      {"@type": "Thing", "name": "BSc Nursing"},
+      {"@type": "Thing", "name": "ANM Nursing"},
+      {"@type": "Thing", "name": "ICU Nurse Jobs"},
+      {"@type": "Thing", "name": "Staff Nurse Vacancy India"}
+    ]
+  }
+  </script>
+
   <!-- Structured Data - SoftwareApplication (Brand Signal) -->
   <script type="application/ld+json">
   {
@@ -288,6 +463,7 @@
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "2.0",
     "datePublished": "2025-01-01",
+    "dateModified": "2026-03-30",
     "inLanguage": ["en", "hi"],
     "countryOfOrigin": {
       "@type": "Country",
@@ -319,14 +495,16 @@
       --warning: #f59e0b;
       --bg-dark: #0c1222;
       --bg-darker: #060912;
-      --bg-card: rgba(12, 18, 34, 0.8);
+      --bg-card: rgba(255, 255, 255, 0.04);
       --text-primary: #f8fafc;
       --text-secondary: rgba(248, 250, 252, 0.7);
       --text-muted: rgba(248, 250, 252, 0.5);
-      --border-subtle: rgba(8, 145, 178, 0.15);
-      --border-hover: rgba(8, 145, 178, 0.4);
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-hover: rgba(255, 255, 255, 0.06);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-hover: rgba(255, 255, 255, 0.1);
+      --glass-blur: blur(20px);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -358,18 +536,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(6, 9, 18, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(8, 145, 178, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.3s ease;
     }
 
     nav.scrolled {
       padding: 0.5rem 2rem;
-      background: rgba(6, 9, 18, 0.95);
-      border-bottom-color: rgba(8, 145, 178, 0.2);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .logo {
@@ -634,25 +812,26 @@
 
     /* Heartbeat Line */
     .heartbeat-line {
-      position: absolute;
-      bottom: 15%;
-      left: 0;
-      right: 0;
-      height: 100px;
-      opacity: 0.1;
+      position: relative;
+      width: 100%;
+      height: 60px;
+      opacity: 0.2;
       overflow: hidden;
+      margin-top: 2rem;
+      margin-bottom: -1rem;
     }
 
     .heartbeat-path {
       stroke: var(--primary-light);
       stroke-width: 2;
       fill: none;
-      animation: heartbeat 2s infinite linear;
     }
 
-    @keyframes heartbeat {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-200px); }
+    .heartbeat-dot {
+      r: 4;
+      fill: #00d4ff;
+      filter: drop-shadow(0 0 6px #00d4ff) drop-shadow(0 0 12px #00d4ff);
+      opacity: 1;
     }
 
     .hero-content {
@@ -668,14 +847,16 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1.25rem;
-      background: var(--glass);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--primary-light);
       margin-bottom: 2rem;
       animation: fadeInDown 0.8s ease;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .hero-badge-icon {
@@ -817,8 +998,8 @@
 
     .stat-item {
       text-align: center;
-      background: rgba(8, 145, 178, 0.06);
-      border: 1px solid rgba(8, 145, 178, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 1.25rem 1.75rem;
       flex: 1 1 0;
@@ -826,6 +1007,9 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .stat-item::before {
@@ -841,9 +1025,10 @@
     }
 
     .stat-item:hover {
-      border-color: rgba(8, 145, 178, 0.3);
-      background: rgba(8, 145, 178, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
       transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .stat-item:hover::before {
@@ -951,15 +1136,16 @@
     .feature-card {
       flex-shrink: 0;
       width: 320px;
-      background: rgba(12, 18, 34, 0.4);
-      border: 1px solid rgba(8, 145, 178, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
       padding: 2rem;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       position: relative;
       overflow: visible;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .feature-card::before {
@@ -985,9 +1171,9 @@
 
     .feature-card:hover {
       transform: translateY(-8px) scale(1.02);
-      border-color: rgba(8, 145, 178, 0.5);
-      background: rgba(8, 145, 178, 0.15);
-      box-shadow: 0 20px 60px rgba(8, 145, 178, 0.25), 0 0 30px rgba(8, 145, 178, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(8, 145, 178, 0.1);
     }
 
     .feature-icon-wrapper {
@@ -1100,14 +1286,16 @@
     }
 
     .form-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 3rem;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       max-width: 900px;
       margin: 0 auto;
       transition: all 0.3s;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .form-card:hover {
@@ -1373,11 +1561,14 @@
     }
 
     .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 1.75rem;
       transition: all 0.3s;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .stat-card:hover {
@@ -1601,8 +1792,8 @@
     }
 
     .payment-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 2rem;
       max-width: 500px;
@@ -1611,6 +1802,9 @@
       animation: modalSlideIn 0.4s ease;
       max-height: 90vh;
       overflow-y: auto;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .payment-icon {
@@ -1819,14 +2013,17 @@
     }
 
     .success-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 3rem;
       max-width: 480px;
       width: 100%;
       text-align: center;
       animation: modalSlideIn 0.4s ease;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .success-icon {
@@ -1899,14 +2096,17 @@
     }
 
     .otp-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 3rem;
       max-width: 460px;
       width: 100%;
       text-align: center;
       animation: modalSlideIn 0.4s ease;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     @keyframes modalSlideIn {
@@ -2116,12 +2316,14 @@
     }
 
     .faq-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       margin-bottom: 0.75rem;
       overflow: hidden;
       transition: all 0.3s;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .faq-item:hover {
@@ -2204,18 +2406,20 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.6rem 1.25rem;
-      background: rgba(8, 145, 178, 0.05);
-      border: 1px solid rgba(8, 145, 178, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 50px;
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--text-secondary);
       transition: all 0.2s;
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
     }
 
     .trust-badge:hover {
-      border-color: rgba(8, 145, 178, 0.25);
-      background: rgba(8, 145, 178, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .trust-badge svg {
@@ -2229,9 +2433,11 @@
 
     /* ==================== FOOTER ==================== */
     footer {
-      background: #060912;
-      border-top: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 4rem 2rem 1.5rem;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .footer-content {
@@ -2718,12 +2924,6 @@
         <div class="dna-strand"></div>
       </div>
       
-      <!-- Heartbeat Line -->
-      <div class="heartbeat-line">
-        <svg width="100%" height="100" viewBox="0 0 1000 100" preserveAspectRatio="none">
-          <path class="heartbeat-path" d="M0,50 L150,50 L170,50 L180,20 L190,80 L200,40 L210,60 L220,50 L400,50 L420,50 L430,20 L440,80 L450,40 L460,60 L470,50 L650,50 L670,50 L680,20 L690,80 L700,40 L710,60 L720,50 L900,50 L920,50 L930,20 L940,80 L950,40 L960,60 L970,50 L1200,50"/>
-        </svg>
-      </div>
     </div>
 
     <div class="hero-content">
@@ -2773,6 +2973,29 @@
           Build Resume - FREE
           <span class="btn-badge">NEW</span>
         </a>
+      </div>
+
+      <!-- Heartbeat Line -->
+      <div class="heartbeat-line">
+        <svg width="100%" height="60" viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <defs>
+            <radialGradient id="dotGlow">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <path id="heartbeatPath" class="heartbeat-path" d="M0,50 L150,50 L170,50 L180,20 L190,80 L200,40 L210,60 L220,50 L400,50 L420,50 L430,20 L440,80 L450,40 L460,60 L470,50 L650,50 L670,50 L680,20 L690,80 L700,40 L710,60 L720,50 L900,50 L920,50 L930,20 L940,80 L950,40 L960,60 L970,50 L1200,50"/>
+          <circle r="10" fill="url(#dotGlow)" opacity="0.5">
+            <animateMotion dur="4s" repeatCount="indefinite">
+              <mpath href="#heartbeatPath"/>
+            </animateMotion>
+          </circle>
+          <circle class="heartbeat-dot">
+            <animateMotion dur="4s" repeatCount="indefinite">
+              <mpath href="#heartbeatPath"/>
+            </animateMotion>
+          </circle>
+        </svg>
       </div>
 
       <!-- Stats -->
