@@ -65,6 +65,23 @@
         { "fieldPath": "createdAt", "order": "DESCENDING" }
       ]
     }
+    ,
+    {
+      "collectionGroup": "placements",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "hiredAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "emailCampaignLog",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "seekerId", "order": "ASCENDING" },
+        { "fieldPath": "campaignType", "order": "ASCENDING" },
+        { "fieldPath": "sentAt", "order": "DESCENDING" }
+      ]
+    }
   ],
   "fieldOverrides": []
 }

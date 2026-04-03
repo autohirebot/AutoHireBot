@@ -111,6 +111,29 @@ service cloud.firestore {
       allow create: if request.auth != null;
     }
 
+    // Placements: public cannot write, admin can read
+    match /placements/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // Platform stats: public read (for homepage stats), server-only write
+    match /platformStats/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Email campaign log: server-only
+    match /emailCampaignLog/{docId} {
+      allow read, write: if false;
+    }
+
+    // Referrals: server-managed, authenticated read own
+    match /referrals/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
     // Default deny
     match /{document=**} {
       allow read, write: if false;

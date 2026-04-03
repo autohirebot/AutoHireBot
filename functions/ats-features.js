@@ -6,6 +6,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const { defineSecret } = require('firebase-functions/params');
+const { handlePlacement } = require('./placement-handler');
 
 const zeptoApiKey = defineSecret('ZEPTO_API_KEY');
 
@@ -72,6 +73,16 @@ exports.updateCandidateStage = functions
       changedBy: context.auth.uid,
       createdAt: admin.firestore.FieldValue.serverTimestamp()
     });
+
+    // If hired, trigger placement tracking
+    if (newStage === 'hired') {
+      try {
+        await handlePlacement(matchId, match);
+        console.log(`🎉 Placement tracked for match ${matchId}`);
+      } catch (placementErr) {
+        console.error('Placement tracking failed (non-blocking):', placementErr.message);
+      }
+    }
 
     return {
       success: true,

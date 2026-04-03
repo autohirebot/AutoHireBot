@@ -431,6 +431,28 @@
       color: #f87171;
     }
 
+    .job-badge.new-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      animation: pulse-badge 2s infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .job-badge.applied-count {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+
+    .salary-highlight {
+      color: #34d399 !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
     .job-details {
       display: flex;
       flex-wrap: wrap;
@@ -834,6 +856,25 @@
       const shifts = job.shifts || [];
       const postedDate = job.createdAt ? formatDate(job.createdAt.toDate()) : 'Recently';
       const isUrgent = parseInt(job.openings) >= 5;
+      const createdTime = job.createdAt ? job.createdAt.toDate().getTime() : 0;
+      const isNew = createdTime && (Date.now() - createdTime) < 48 * 60 * 60 * 1000;
+      const appCount = job.applicationCount || 0;
+
+      // Badge priority: NEW > Urgent > Active
+      let badgeHtml = '<span class="job-badge">Active</span>';
+      if (isNew) badgeHtml = '<span class="job-badge new-badge">NEW</span>';
+      else if (isUrgent) badgeHtml = '<span class="job-badge urgent">Urgent</span>';
+
+      // Salary display
+      let salaryHtml = '';
+      if (job.salaryMin || job.salaryMax) {
+        const min = job.salaryMin ? Number(job.salaryMin).toLocaleString('en-IN') : '';
+        const max = job.salaryMax ? Number(job.salaryMax).toLocaleString('en-IN') : '';
+        salaryHtml = `<div class="job-detail salary-highlight">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.87c0 1.88-1.43 2.97-3.12 3.17z"/></svg>
+          &#8377;${min}${min && max ? ' - &#8377;' + max : ''} /month
+        </div>`;
+      }
 
       return `
         <div class="job-card">
@@ -842,7 +883,7 @@
               <div class="job-title">${escapeHtml(job.department || 'Nursing')} - ${escapeHtml(job.facilityType || 'Hospital')}</div>
               <div class="facility-name">${escapeHtml(job.facilityName || 'Healthcare Facility')}</div>
             </div>
-            ${isUrgent ? '<span class="job-badge urgent">Urgent</span>' : '<span class="job-badge">Active</span>'}
+            ${badgeHtml}
           </div>
 
           <div class="job-details">
@@ -858,16 +899,18 @@
               <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
               ${shifts.length > 0 ? shifts.join(', ') : 'All Shifts'}
             </div>
+            ${salaryHtml}
           </div>
 
           <div class="job-skills">
             ${skills.slice(0, 4).map(skill => `<span class="skill-tag">${escapeHtml(skill)}</span>`).join('')}
             ${skills.length > 4 ? `<span class="skill-tag">+${skills.length - 4} more</span>` : ''}
+            ${appCount > 0 ? `<span class="job-badge applied-count">${appCount} applied</span>` : ''}
           </div>
 
           <div class="job-footer">
             <span class="job-posted">Posted ${postedDate}</span>
-            <a href="index.html#register" class="btn-apply">Apply Now</a>
+            <a href="index.html#forms" class="btn-apply">Apply Now &rarr;</a>
           </div>
         </div>
       `;
