@@ -23,23 +23,55 @@ function isNewJob(createdAt: any): boolean {
   return (Date.now() - posted.getTime()) < 48 * 60 * 60 * 1000;
 }
 
+// Map common Indian cities to their state for addressRegion
+const CITY_STATE_MAP: Record<string, string> = {
+  delhi: 'Delhi', 'new delhi': 'Delhi', mumbai: 'Maharashtra', bangalore: 'Karnataka',
+  bengaluru: 'Karnataka', chennai: 'Tamil Nadu', hyderabad: 'Telangana', kolkata: 'West Bengal',
+  pune: 'Maharashtra', ahmedabad: 'Gujarat', jaipur: 'Rajasthan', lucknow: 'Uttar Pradesh',
+  chandigarh: 'Chandigarh', kochi: 'Kerala', thiruvananthapuram: 'Kerala', gurgaon: 'Haryana',
+  gurugram: 'Haryana', noida: 'Uttar Pradesh', indore: 'Madhya Pradesh', bhopal: 'Madhya Pradesh',
+  patna: 'Bihar', nagpur: 'Maharashtra', coimbatore: 'Tamil Nadu', visakhapatnam: 'Andhra Pradesh',
+};
+
+function getStateFromCity(location: string): string {
+  const city = location.toLowerCase().trim();
+  for (const [key, state] of Object.entries(CITY_STATE_MAP)) {
+    if (city.includes(key)) return state;
+  }
+  return 'India';
+}
+
 function buildJobPostingSchema(job: Job) {
+  const datePosted = job.createdAt
+    ? new Date(job.createdAt.toDate ? job.createdAt.toDate() : job.createdAt).toISOString().split('T')[0]
+    : new Date().toISOString().split('T')[0];
+
+  // validThrough = 60 days from posting
+  const validDate = new Date(datePosted);
+  validDate.setDate(validDate.getDate() + 60);
+  const validThrough = validDate.toISOString().split('T')[0];
+
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'JobPosting',
     title: job.jobTitle,
-    description: `${job.jobTitle}${job.department ? ` in ${job.department}` : ''}${job.facilityName ? ` at ${job.facilityName}` : ''}`,
-    datePosted: job.createdAt ? new Date(job.createdAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+    description: `${job.jobTitle}${job.department ? ` in ${job.department} department` : ''} at ${job.facilityName || 'a leading hospital'}. Full-time nursing position in India. Qualifications: GNM/BSc Nursing. Apply via AutoHireBot for AI-powered job matching.`,
+    datePosted,
+    validThrough,
     employmentType: 'FULL_TIME',
+    directApply: true,
     industry: 'Healthcare',
-  };
-
-  if (job.facilityName) {
-    schema.hiringOrganization = {
+    hiringOrganization: {
       '@type': 'Organization',
-      name: job.facilityName,
-    };
-  }
+      name: job.facilityName || 'AutoHireBot Partner Hospital',
+      sameAs: 'https://autohirebot.com',
+    },
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'AutoHireBot',
+      value: job.id,
+    },
+  };
 
   if (job.location) {
     schema.jobLocation = {
@@ -47,6 +79,7 @@ function buildJobPostingSchema(job: Job) {
       address: {
         '@type': 'PostalAddress',
         addressLocality: job.location,
+        addressRegion: getStateFromCity(job.location),
         addressCountry: 'IN',
       },
     };

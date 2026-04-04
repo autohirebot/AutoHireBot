@@ -820,6 +820,9 @@
         // Update stats
         document.getElementById('totalJobs').textContent = allJobs.length;
 
+        // Inject JobPosting JSON-LD for Google for Jobs
+        injectJobPostingSchema(allJobs);
+
         // Render jobs
         renderJobs(allJobs);
 
@@ -937,6 +940,71 @@
       }
 
       renderJobs(filtered);
+    }
+
+    var CITY_STATE = {
+      'delhi':'Delhi','new delhi':'Delhi','mumbai':'Maharashtra','bangalore':'Karnataka',
+      'bengaluru':'Karnataka','chennai':'Tamil Nadu','hyderabad':'Telangana','kolkata':'West Bengal',
+      'pune':'Maharashtra','ahmedabad':'Gujarat','jaipur':'Rajasthan','lucknow':'Uttar Pradesh',
+      'gurgaon':'Haryana','gurugram':'Haryana','noida':'Uttar Pradesh','kochi':'Kerala',
+      'chandigarh':'Chandigarh','indore':'Madhya Pradesh','patna':'Bihar','nagpur':'Maharashtra'
+    };
+
+    function getState(loc) {
+      if (!loc) return 'India';
+      var l = loc.toLowerCase();
+      for (var k in CITY_STATE) { if (l.indexOf(k) !== -1) return CITY_STATE[k]; }
+      return 'India';
+    }
+
+    function injectJobPostingSchema(jobs) {
+      var schemas = jobs.slice(0, 20).map(function(job) {
+        var posted = job.createdAt ? job.createdAt.toDate().toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+        var valid = new Date(posted);
+        valid.setDate(valid.getDate() + 60);
+        var obj = {
+          '@context': 'https://schema.org',
+          '@type': 'JobPosting',
+          'title': job.department || 'Staff Nurse',
+          'description': (job.department || 'Nursing') + ' position at ' + (job.facilityName || 'Hospital') + ' in ' + (job.location || 'India') + '. Full-time nursing vacancy. Apply via AutoHireBot.',
+          'datePosted': posted,
+          'validThrough': valid.toISOString().split('T')[0],
+          'employmentType': 'FULL_TIME',
+          'directApply': true,
+          'industry': 'Healthcare',
+          'hiringOrganization': {
+            '@type': 'Organization',
+            'name': job.facilityName || 'AutoHireBot Partner Hospital',
+            'sameAs': 'https://autohirebot.com'
+          },
+          'jobLocation': {
+            '@type': 'Place',
+            'address': {
+              '@type': 'PostalAddress',
+              'addressLocality': job.location || 'India',
+              'addressRegion': getState(job.location),
+              'addressCountry': 'IN'
+            }
+          }
+        };
+        if (job.salaryMin || job.salaryMax) {
+          obj.baseSalary = {
+            '@type': 'MonetaryAmount',
+            'currency': 'INR',
+            'value': {
+              '@type': 'QuantitativeValue',
+              'minValue': parseInt(job.salaryMin) || 15000,
+              'maxValue': parseInt(job.salaryMax) || 50000,
+              'unitText': 'MONTH'
+            }
+          };
+        }
+        return obj;
+      });
+      var script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(schemas);
+      document.head.appendChild(script);
     }
 
     function formatDate(date) {

@@ -283,14 +283,28 @@
       "sameAs": "https://autohirebot.com",
       "logo": "https://autohirebot.com/logo.svg"
     },
-    "jobLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN",
-        "addressRegion": "Multiple Locations"
+    "jobLocation": [
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Delhi", "addressRegion": "Delhi", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressRegion": "Maharashtra", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressRegion": "Karnataka", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressRegion": "Tamil Nadu", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressRegion": "Telangana", "addressCountry": "IN" }
       }
-    },
+    ],
     "baseSalary": {
       "@type": "MonetaryAmount",
       "currency": "INR",
