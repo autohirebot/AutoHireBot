@@ -10,6 +10,7 @@ const cashfree = require('./cashfree-integration');
 const embeddings = require('./embeddings-matching');
 const dbMigration = require('./db-migration');
 const ats = require('./ats-features');
+const drip = require('./drip-campaign');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const crypto = require('crypto');
@@ -597,25 +598,26 @@ async function createMatch(seeker, job, scores) {
 
 // ==================== MAIN MATCHING FUNCTIONS ====================
 
-async function matchSeekerWithJobs(seekerId) {
-  console.log('🔍 Matching seeker:', seekerId);
-  
+async function matchSeekerWithJobs(seekerId, config = {}) {
+  const minScore = config.minMatchScore || MATCH_CONFIG.MIN_MATCH_SCORE;
+  console.log('🔍 Matching seeker:', seekerId, config.minMatchScore ? `(relaxed: minScore=${minScore})` : '');
+
   const seekerDoc = await db.collection('jobSeekers').doc(seekerId).get();
   if (!seekerDoc.exists) {
     console.log('Seeker not found');
     return { success: false, error: 'Seeker not found' };
   }
-  
+
   const seeker = { id: seekerDoc.id, ...seekerDoc.data() };
   const jobsSnap = await db.collection('jobs').where('status', '==', 'active').get();
-  
+
   const matches = [];
-  
+
   for (const jobDoc of jobsSnap.docs) {
     const job = { id: jobDoc.id, ...jobDoc.data() };
     const scores = calculateMatchScore(seeker, job);
-    
-    if (scores.totalScore >= MATCH_CONFIG.MIN_MATCH_SCORE) {
+
+    if (scores.totalScore >= minScore) {
       const result = await createMatch(seeker, job, scores);
       
       if (result.created) {
@@ -992,20 +994,53 @@ exports.onSeekerVerified = functions.runWith({ secrets: [zeptoApiKey] }).firesto
     
     if (!before.verified && after.verified) {
       console.log('🆕 Job seeker verified, running AI matching...');
-      const result = await matchSeekerWithJobs(context.params.seekerId);
-      
+      const seekerId = context.params.seekerId;
+      const result = await matchSeekerWithJobs(seekerId);
+
+      // Generate unique referral code
+      try {
+        const refCode = 'AH' + seekerId.substring(0, 6).toUpperCase();
+        await db.collection('jobSeekers').doc(seekerId).update({ referralCode: refCode });
+        console.log('🔗 Referral code generated:', refCode);
+      } catch (refErr) {
+        console.error('Referral code generation failed:', refErr.message);
+      }
+
+      // Link referrer if this seeker was referred
+      try {
+        if (after.referredBy) {
+          const referrerSnap = await db.collection('jobSeekers')
+            .where('referralCode', '==', after.referredBy)
+            .limit(1)
+            .get();
+          if (!referrerSnap.empty) {
+            await db.collection('referrals').add({
+              referrerId: referrerSnap.docs[0].id,
+              referrerName: referrerSnap.docs[0].data().name,
+              referredId: seekerId,
+              referredName: after.name,
+              status: 'registered',
+              createdAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+            console.log('🔗 Referral linked:', after.referredBy);
+          }
+        }
+      } catch (refLinkErr) {
+        console.error('Referral linking failed:', refLinkErr.message);
+      }
+
       // Send welcome email
       try {
         await sendWelcomeEmail(after.email, after.name, result.matchCount || 0);
       } catch (e) {
         console.error('Welcome email failed:', e.message);
       }
-        // WhatsApp welcome
-        try {
-          await whatsapp.sendWelcomeMessage(after.phone, after.name, result.matchCount || 0);
-        } catch (waErr) {
-          console.log('WhatsApp welcome skipped:', waErr.message);
-        }
+      // WhatsApp welcome
+      try {
+        await whatsapp.sendWelcomeMessage(after.phone, after.name, result.matchCount || 0);
+      } catch (waErr) {
+        console.log('WhatsApp welcome skipped:', waErr.message);
+      }
     }
     return null;
   });
@@ -1104,6 +1139,67 @@ exports.testEmail = functions.runWith({ secrets: [zeptoApiKey] }).https.onReques
     res.json({ success: true, message: `Test email sent to ${testTo}` });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ==================== PUBLIC STATS ENDPOINT ====================
+
+// Get public placement stats (no auth required, CORS restricted)
+exports.getPublicStats = functions.https.onRequest(async (req, res) => {
+  // CORS — allow autohirebot.com and localhost for dev
+  const origin = req.headers.origin || '';
+  const allowed = ['https://autohirebot.com', 'https://www.autohirebot.com', 'http://localhost:5000', 'http://localhost:3000'];
+  if (allowed.includes(origin)) {
+    res.set('Access-Control-Allow-Origin', origin);
+  }
+  res.set('Access-Control-Allow-Methods', 'GET');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+  res.set('Cache-Control', 'public, max-age=300'); // 5-minute cache
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send('');
+  }
+
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const statsDoc = await db.collection('platformStats').doc('live').get();
+
+    if (!statsDoc.exists) {
+      return res.json({
+        totalPlacements: 0,
+        thisMonthPlacements: 0,
+        avgTimeToPlacement: 0,
+        successRate: 0,
+        recentPlacements: []
+      });
+    }
+
+    const stats = statsDoc.data();
+
+    // Calculate success rate from total placements vs total verified seekers
+    const seekersSnap = await db.collection('jobSeekers').where('verified', '==', true).count().get();
+    const totalSeekers = seekersSnap.data().count || 1;
+    const successRate = Math.min(100, Math.round(((stats.totalPlacements || 0) / totalSeekers) * 100));
+
+    return res.json({
+      totalPlacements: stats.totalPlacements || 0,
+      thisMonthPlacements: stats.thisMonthPlacements || 0,
+      avgTimeToPlacement: stats.avgTimeToPlacement || 0,
+      successRate,
+      recentPlacements: (stats.recentPlacements || []).map(p => ({
+        initials: p.initials,
+        hospital: p.hospital,
+        location: p.location,
+        jobTitle: p.jobTitle,
+        hiredAt: p.hiredAt
+      }))
+    });
+  } catch (error) {
+    console.error('getPublicStats error:', error);
+    return res.status(500).json({ error: 'Failed to fetch stats' });
   }
 });
 
@@ -1412,6 +1508,10 @@ exports.getRecruiterAnalytics = ats.getRecruiterAnalytics;
 exports.exportCandidates = ats.exportCandidates;
 exports.addCandidateNote = ats.addCandidateNote;
 exports.getCandidateNotes = ats.getCandidateNotes;
+
+// ==================== DRIP CAMPAIGN EXPORTS ====================
+exports.dailyDripCampaign = drip.dailyDripCampaign;
+exports.weeklyJobDigest = drip.weeklyJobDigest;
 
 // ==================== INTERNAL EXPORTS (for whatsapp-bot module) ====================
 exports._matchSeekerWithJobs = matchSeekerWithJobs;

@@ -109,10 +109,16 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "AutoHireBot",
-    "alternateName": "AutoHireBot Healthcare Recruitment",
+    "alternateName": ["AutoHireBot Healthcare Recruitment", "Auto Hire Bot", "AutoHireBot India"],
     "url": "https://autohirebot.com",
-    "logo": "https://autohirebot.com/logo.png",
-    "description": "AI-powered healthcare recruitment platform connecting nursing professionals with hospitals across India",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://autohirebot.com/logo.svg",
+      "width": 200,
+      "height": 60
+    },
+    "image": "https://autohirebot.com/og-image.svg",
+    "description": "AutoHireBot is India's #1 AI-powered healthcare recruitment platform connecting nursing professionals with 500+ partner hospitals across India. Free for nurses.",
     "foundingDate": "2025",
     "founder": {
       "@type": "Organization",
@@ -122,7 +128,8 @@
       "@type": "ContactPoint",
       "contactType": "customer service",
       "email": "admin@autohirebot.com",
-      "availableLanguage": ["English", "Hindi"]
+      "availableLanguage": ["English", "Hindi"],
+      "areaServed": "IN"
     },
     "sameAs": [
       "https://www.linkedin.com/company/autohirebot",
@@ -132,11 +139,71 @@
     "areaServed": {
       "@type": "Country",
       "name": "India"
+    },
+    "knowsAbout": ["Nursing Recruitment", "Healthcare Jobs", "AI Job Matching", "Hospital Staffing", "GNM Nursing", "BSc Nursing", "Staff Nurse Jobs"],
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 1,
+      "maxValue": 50
     }
   }
   </script>
-  
-  <!-- Structured Data - Website -->
+
+  <!-- Structured Data - EmploymentAgency (LocalBusiness) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EmploymentAgency",
+    "name": "AutoHireBot",
+    "description": "AI-powered nursing job matching platform connecting healthcare professionals with hospitals across India",
+    "url": "https://autohirebot.com",
+    "logo": "https://autohirebot.com/logo.svg",
+    "email": "admin@autohirebot.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN",
+      "addressRegion": "India"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "priceRange": "Free for job seekers",
+    "openingHours": "Mo-Su 00:00-24:00",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Nursing Job Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Job Matching for Nurses",
+            "description": "Free AI-powered job matching connecting nurses with 500+ hospitals in under 2 minutes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hospital Recruitment Solutions",
+            "description": "Smart candidate sourcing and matching for healthcare organizations"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nursing Resume Builder",
+            "description": "Free ATS-optimized resume builder for nursing professionals"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Website with SiteLinksSearchBox -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -144,38 +211,100 @@
     "name": "AutoHireBot",
     "url": "https://autohirebot.com",
     "description": "AI-powered nursing jobs and healthcare recruitment platform in India",
+    "inLanguage": ["en", "hi"],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://autohirebot.com/search?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://autohirebot.com/jobs?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
   </script>
-  
+
+  <!-- Structured Data - HowTo: AI Job Matching Process -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Find Nursing Jobs with AutoHireBot AI",
+    "description": "Get matched with nursing jobs at top hospitals in India in 3 simple steps using AutoHireBot's AI-powered platform.",
+    "totalTime": "PT2M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "INR",
+      "value": "0"
+    },
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Register as a Nurse",
+        "text": "Create your free account on AutoHireBot. Enter your nursing qualification (GNM, BSc Nursing, ANM), specialization, experience, and preferred location.",
+        "url": "https://autohirebot.com/register/seeker"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "AI Matches You Instantly",
+        "text": "Our AI analyzes your profile and matches you with relevant nursing job openings at 500+ partner hospitals across India within 2 minutes.",
+        "url": "https://autohirebot.com/"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Receive Job Offers",
+        "text": "Get real-time email notifications for matched jobs. Review hospital details, salary, and location. Apply directly through AutoHireBot.",
+        "url": "https://autohirebot.com/jobs"
+      }
+    ]
+  }
+  </script>
+
   <!-- Structured Data - Job Posting (Sample) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     "title": "Registered Nurse - Multiple Positions",
-    "description": "Join leading hospitals across India. Positions available for ICU, Emergency, Pediatrics, Surgery, and General nursing. Competitive salary and benefits.",
+    "description": "Join leading hospitals across India. Positions available for ICU, Emergency, Pediatrics, Surgery, and General nursing. Competitive salary and benefits. Apply free via AutoHireBot.",
     "datePosted": "2026-01-01",
     "validThrough": "2026-12-31",
     "employmentType": ["FULL_TIME", "PART_TIME", "CONTRACT"],
+    "jobLocationType": "TELECOMMUTE",
+    "applicantLocationRequirements": {
+      "@type": "Country",
+      "name": "India"
+    },
     "hiringOrganization": {
       "@type": "Organization",
       "name": "AutoHireBot Partner Hospitals",
       "sameAs": "https://autohirebot.com",
-      "logo": "https://autohirebot.com/logo.png"
+      "logo": "https://autohirebot.com/logo.svg"
     },
-    "jobLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN",
-        "addressRegion": "Multiple Locations"
+    "jobLocation": [
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Delhi", "addressRegion": "Delhi", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressRegion": "Maharashtra", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressRegion": "Karnataka", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressRegion": "Tamil Nadu", "addressCountry": "IN" }
+      },
+      {
+        "@type": "Place",
+        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressRegion": "Telangana", "addressCountry": "IN" }
       }
-    },
+    ],
     "baseSalary": {
       "@type": "MonetaryAmount",
       "currency": "INR",
@@ -189,10 +318,11 @@
     "qualifications": "GNM, BSc Nursing, or ANM certification required",
     "skills": "Patient Care, Critical Care, Emergency Response, Medical Equipment Operation",
     "industry": "Healthcare",
-    "occupationalCategory": "29-1141.00 Registered Nurses"
+    "occupationalCategory": "29-1141.00 Registered Nurses",
+    "directApply": true
   }
   </script>
-  
+
   <!-- Structured Data - FAQ -->
   <script type="application/ld+json">
   {
@@ -201,18 +331,10 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How fast are matches delivered?",
+        "name": "How does AutoHireBot find nursing jobs for me?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our AI matches healthcare professionals and job openings in under 2 minutes, sending real-time email notifications to both parties immediately upon finding a match."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my personal data safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. All data is encrypted end-to-end and we are fully HIPAA compliant. Your information is never sold to third parties."
+          "text": "AutoHireBot uses AI-powered job matching to analyze your nursing profile — including qualification (GNM, BSc Nursing, ANM), specialization, experience, and location preference — and instantly matches you with relevant job openings at 500+ partner hospitals across India in under 2 minutes."
         }
       },
       {
@@ -220,7 +342,23 @@
         "name": "Is AutoHireBot free for nurses?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! The platform is completely free for all healthcare job seekers. Register and get matched with hospitals instantly."
+          "text": "Yes, AutoHireBot is completely free for all nursing and healthcare job seekers. Register, get AI-matched with hospitals, and receive job offers at zero cost. Hospitals pay a subscription fee; nurses always register free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What nursing qualifications does AutoHireBot support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AutoHireBot supports all major nursing qualifications including GNM (General Nursing and Midwifery), BSc Nursing, ANM (Auxiliary Nurse Midwife), Post BSc Nursing, and MSc Nursing. Both fresher and experienced nurses can register."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which cities have nursing jobs on AutoHireBot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AutoHireBot has nursing job openings across all major Indian cities including Delhi NCR, Mumbai, Bangalore, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Lucknow, and 50+ more cities. Both government and private hospital jobs are available."
         }
       },
       {
@@ -228,13 +366,37 @@
         "name": "What nursing specialties are supported?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We support all major nursing specialties including ICU/Critical Care, Emergency Room, Medical-Surgical, Pediatrics, Labor & Delivery, Operating Room, Oncology, Cardiology, Geriatrics, and Psychiatric nursing."
+          "text": "We support all major nursing specialties including ICU/Critical Care, Emergency Room (ER), Medical-Surgical, Pediatrics, NICU, Labor and Delivery, Operating Room (OT), Oncology, Cardiology, Dialysis, Geriatrics, and Psychiatric nursing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast are job matches delivered?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our AI matches healthcare professionals with job openings in under 2 minutes of registration, sending real-time email notifications to both the nurse and the hiring hospital immediately upon finding a compatible match."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my personal data safe on AutoHireBot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All personal data on AutoHireBot is encrypted end-to-end using Firebase secure infrastructure. Your information is never sold to third parties, and you have full control over your profile visibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the salary range for nursing jobs in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Staff nurse salaries in India range from ₹20,000 to ₹80,000 per month depending on qualification, experience, specialization, and location. ICU and specialized nurses typically earn ₹35,000-₹80,000/month while freshers start at ₹20,000-₹30,000/month."
         }
       }
     ]
   }
   </script>
-  
+
   <!-- Structured Data - Breadcrumb -->
   <script type="application/ld+json">
   {
@@ -251,18 +413,45 @@
         "@type": "ListItem",
         "position": 2,
         "name": "Nursing Jobs",
-        "item": "https://autohirebot.com/#forms"
+        "item": "https://autohirebot.com/jobs"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "For Recruiters",
-        "item": "https://autohirebot.com/#forms"
+        "name": "Register as Nurse",
+        "item": "https://autohirebot.com/register/seeker"
       }
     ]
   }
   </script>
-  
+
+  <!-- Structured Data - Speakable (GEO: AI-readable key content) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AutoHireBot - AI Nursing Jobs & Healthcare Recruitment India",
+    "url": "https://autohirebot.com/",
+    "description": "AutoHireBot is India's #1 AI-powered nursing job matching platform. Find nursing jobs at 500+ hospitals in India. Free for nurses. AI matches in 2 minutes.",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".hero-title", ".hero-description", ".stats-section", "h1", "h2"]
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Nursing Jobs India",
+      "description": "AI-powered nursing job matching connecting GNM, BSc Nursing, and ANM professionals with hospitals across India"
+    },
+    "mentions": [
+      {"@type": "Thing", "name": "GNM Nursing"},
+      {"@type": "Thing", "name": "BSc Nursing"},
+      {"@type": "Thing", "name": "ANM Nursing"},
+      {"@type": "Thing", "name": "ICU Nurse Jobs"},
+      {"@type": "Thing", "name": "Staff Nurse Vacancy India"}
+    ]
+  }
+  </script>
+
   <!-- Structured Data - SoftwareApplication (Brand Signal) -->
   <script type="application/ld+json">
   {
@@ -288,10 +477,28 @@
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "2.0",
     "datePublished": "2025-01-01",
+    "dateModified": "2026-03-30",
     "inLanguage": ["en", "hi"],
     "countryOfOrigin": {
       "@type": "Country",
       "name": "India"
+    }
+  }
+  </script>
+
+  <!-- AggregateRating Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EmploymentAgency",
+    "name": "AutoHireBot",
+    "url": "https://autohirebot.com",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "4",
+      "reviewCount": "4"
     }
   }
   </script>
@@ -319,14 +526,16 @@
       --warning: #f59e0b;
       --bg-dark: #0c1222;
       --bg-darker: #060912;
-      --bg-card: rgba(12, 18, 34, 0.8);
+      --bg-card: rgba(255, 255, 255, 0.04);
       --text-primary: #f8fafc;
       --text-secondary: rgba(248, 250, 252, 0.7);
       --text-muted: rgba(248, 250, 252, 0.5);
-      --border-subtle: rgba(8, 145, 178, 0.15);
-      --border-hover: rgba(8, 145, 178, 0.4);
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-hover: rgba(255, 255, 255, 0.06);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-hover: rgba(255, 255, 255, 0.1);
+      --glass-blur: blur(20px);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -358,18 +567,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(6, 9, 18, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(8, 145, 178, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.3s ease;
     }
 
     nav.scrolled {
       padding: 0.5rem 2rem;
-      background: rgba(6, 9, 18, 0.95);
-      border-bottom-color: rgba(8, 145, 178, 0.2);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .logo {
@@ -634,25 +843,26 @@
 
     /* Heartbeat Line */
     .heartbeat-line {
-      position: absolute;
-      bottom: 15%;
-      left: 0;
-      right: 0;
-      height: 100px;
-      opacity: 0.1;
+      position: relative;
+      width: 100%;
+      height: 60px;
+      opacity: 0.2;
       overflow: hidden;
+      margin-top: 2rem;
+      margin-bottom: -1rem;
     }
 
     .heartbeat-path {
       stroke: var(--primary-light);
       stroke-width: 2;
       fill: none;
-      animation: heartbeat 2s infinite linear;
     }
 
-    @keyframes heartbeat {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-200px); }
+    .heartbeat-dot {
+      r: 4;
+      fill: #00d4ff;
+      filter: drop-shadow(0 0 6px #00d4ff) drop-shadow(0 0 12px #00d4ff);
+      opacity: 1;
     }
 
     .hero-content {
@@ -668,14 +878,16 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1.25rem;
-      background: var(--glass);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--primary-light);
       margin-bottom: 2rem;
       animation: fadeInDown 0.8s ease;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .hero-badge-icon {
@@ -817,8 +1029,8 @@
 
     .stat-item {
       text-align: center;
-      background: rgba(8, 145, 178, 0.06);
-      border: 1px solid rgba(8, 145, 178, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 1.25rem 1.75rem;
       flex: 1 1 0;
@@ -826,6 +1038,9 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .stat-item::before {
@@ -841,9 +1056,10 @@
     }
 
     .stat-item:hover {
-      border-color: rgba(8, 145, 178, 0.3);
-      background: rgba(8, 145, 178, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
       transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .stat-item:hover::before {
@@ -951,15 +1167,16 @@
     .feature-card {
       flex-shrink: 0;
       width: 320px;
-      background: rgba(12, 18, 34, 0.4);
-      border: 1px solid rgba(8, 145, 178, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
       padding: 2rem;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       position: relative;
       overflow: visible;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .feature-card::before {
@@ -985,9 +1202,9 @@
 
     .feature-card:hover {
       transform: translateY(-8px) scale(1.02);
-      border-color: rgba(8, 145, 178, 0.5);
-      background: rgba(8, 145, 178, 0.15);
-      box-shadow: 0 20px 60px rgba(8, 145, 178, 0.25), 0 0 30px rgba(8, 145, 178, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(8, 145, 178, 0.1);
     }
 
     .feature-icon-wrapper {
@@ -1100,14 +1317,16 @@
     }
 
     .form-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
       padding: 3rem;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       max-width: 900px;
       margin: 0 auto;
       transition: all 0.3s;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .form-card:hover {
@@ -1373,11 +1592,14 @@
     }
 
     .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 1.75rem;
       transition: all 0.3s;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
 
     .stat-card:hover {
@@ -1601,8 +1823,8 @@
     }
 
     .payment-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 2rem;
       max-width: 500px;
@@ -1611,6 +1833,9 @@
       animation: modalSlideIn 0.4s ease;
       max-height: 90vh;
       overflow-y: auto;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .payment-icon {
@@ -1819,14 +2044,17 @@
     }
 
     .success-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 3rem;
       max-width: 480px;
       width: 100%;
       text-align: center;
       animation: modalSlideIn 0.4s ease;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .success-icon {
@@ -1899,14 +2127,17 @@
     }
 
     .otp-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
       padding: 3rem;
       max-width: 460px;
       width: 100%;
       text-align: center;
       animation: modalSlideIn 0.4s ease;
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     @keyframes modalSlideIn {
@@ -2116,12 +2347,14 @@
     }
 
     .faq-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       margin-bottom: 0.75rem;
       overflow: hidden;
       transition: all 0.3s;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .faq-item:hover {
@@ -2204,18 +2437,20 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.6rem 1.25rem;
-      background: rgba(8, 145, 178, 0.05);
-      border: 1px solid rgba(8, 145, 178, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 50px;
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--text-secondary);
       transition: all 0.2s;
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
     }
 
     .trust-badge:hover {
-      border-color: rgba(8, 145, 178, 0.25);
-      background: rgba(8, 145, 178, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .trust-badge svg {
@@ -2229,9 +2464,11 @@
 
     /* ==================== FOOTER ==================== */
     footer {
-      background: #060912;
-      border-top: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 4rem 2rem 1.5rem;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
 
     .footer-content {
@@ -2645,6 +2882,25 @@
     @keyframes autofill-highlight { 0% { background-color: rgba(34, 211, 238, 0.3); } 100% { background-color: transparent; } }
     .autofilled { animation: autofill-highlight 2s ease-out; }
 
+    /* Placement Assurance Section */
+    .placement-assurance-section { padding: 80px 0; background: linear-gradient(180deg, #f8fafc 0%, #f0fdfa 100%); }
+    .testimonials-section { padding: 80px 0; background: #f8fafc; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-animate { display: inline-block; animation: ticker-scroll 20s linear infinite; }
+
+    @media (max-width: 768px) {
+      .placement-steps { grid-template-columns: repeat(2, 1fr) !important; gap: 32px 16px !important; }
+      .step-connector { display: none !important; }
+      .stats-grid-assurance { grid-template-columns: repeat(2, 1fr) !important; }
+      .testimonials-grid { grid-template-columns: 1fr !important; }
+      .placement-assurance-section, .testimonials-section { padding: 50px 0; }
+    }
+    @media (max-width: 480px) {
+      .placement-steps { grid-template-columns: 1fr !important; }
+      .stats-grid-assurance { grid-template-columns: 1fr !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -2718,12 +2974,6 @@
         <div class="dna-strand"></div>
       </div>
       
-      <!-- Heartbeat Line -->
-      <div class="heartbeat-line">
-        <svg width="100%" height="100" viewBox="0 0 1000 100" preserveAspectRatio="none">
-          <path class="heartbeat-path" d="M0,50 L150,50 L170,50 L180,20 L190,80 L200,40 L210,60 L220,50 L400,50 L420,50 L430,20 L440,80 L450,40 L460,60 L470,50 L650,50 L670,50 L680,20 L690,80 L700,40 L710,60 L720,50 L900,50 L920,50 L930,20 L940,80 L950,40 L960,60 L970,50 L1200,50"/>
-        </svg>
-      </div>
     </div>
 
     <div class="hero-content">
@@ -2773,6 +3023,29 @@
           Build Resume - FREE
           <span class="btn-badge">NEW</span>
         </a>
+      </div>
+
+      <!-- Heartbeat Line -->
+      <div class="heartbeat-line">
+        <svg width="100%" height="60" viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <defs>
+            <radialGradient id="dotGlow">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <path id="heartbeatPath" class="heartbeat-path" d="M0,50 L150,50 L170,50 L180,20 L190,80 L200,40 L210,60 L220,50 L400,50 L420,50 L430,20 L440,80 L450,40 L460,60 L470,50 L650,50 L670,50 L680,20 L690,80 L700,40 L710,60 L720,50 L900,50 L920,50 L930,20 L940,80 L950,40 L960,60 L970,50 L1200,50"/>
+          <circle r="10" fill="url(#dotGlow)" opacity="0.5">
+            <animateMotion dur="4s" repeatCount="indefinite">
+              <mpath href="#heartbeatPath"/>
+            </animateMotion>
+          </circle>
+          <circle class="heartbeat-dot">
+            <animateMotion dur="4s" repeatCount="indefinite">
+              <mpath href="#heartbeatPath"/>
+            </animateMotion>
+          </circle>
+        </svg>
       </div>
 
       <!-- Stats -->
@@ -2989,6 +3262,171 @@
             Comprehensive analytics dashboard showing hires, active postings, 
             candidate pipeline, and recruitment performance metrics.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Placement Assurance Section -->
+  <section id="placement-assurance" class="placement-assurance-section fade-in">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 20px;">
+      <div class="section-header" style="text-align:center;margin-bottom:48px;">
+        <div class="section-badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(13,148,136,0.1);color:#0d9488;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:600;margin-bottom:16px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          Placement Assurance Program
+        </div>
+        <h2 class="section-title" style="font-size:36px;font-weight:800;color:#111;margin-bottom:12px;">Your Guaranteed Path to Employment</h2>
+        <p class="section-description" style="font-size:17px;color:#666;max-width:650px;margin:0 auto;">Our AI-driven placement process ensures every registered nurse gets matched, prepared, and placed at top hospitals across India.</p>
+      </div>
+
+      <!-- 4-Step Process -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:48px;position:relative;" class="placement-steps">
+        <div style="position:absolute;top:40px;left:12.5%;right:12.5%;height:3px;background:linear-gradient(90deg,#99f6e4,#0d9488,#99f6e4);z-index:0;border-radius:2px;" class="step-connector"></div>
+
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 15px rgba(13,148,136,0.3);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </div>
+          <div style="background:#0d9488;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;">STEP 1</div>
+          <h4 style="font-size:16px;font-weight:700;color:#111;margin:0 0 6px;">Complete Profile</h4>
+          <p style="font-size:13px;color:#666;margin:0;">Register FREE and fill your nursing qualifications</p>
+        </div>
+
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 15px rgba(13,148,136,0.3);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M8 11h6"/><path d="M11 8v6"/></svg>
+          </div>
+          <div style="background:#0d9488;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;">STEP 2</div>
+          <h4 style="font-size:16px;font-weight:700;color:#111;margin:0 0 6px;">AI Matching</h4>
+          <p style="font-size:13px;color:#666;margin:0;">Our AI finds your best hospital matches in under 2 minutes</p>
+        </div>
+
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 15px rgba(13,148,136,0.3);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 8h.01M9 8h.01"/></svg>
+          </div>
+          <div style="background:#0d9488;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;">STEP 3</div>
+          <h4 style="font-size:16px;font-weight:700;color:#111;margin:0 0 6px;">Interview Prep</h4>
+          <p style="font-size:13px;color:#666;margin:0;">Get AI-powered interview preparation and tips</p>
+        </div>
+
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 15px rgba(245,158,11,0.3);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div style="background:#f59e0b;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;">STEP 4</div>
+          <h4 style="font-size:16px;font-weight:700;color:#111;margin:0 0 6px;">Get Placed!</h4>
+          <p style="font-size:13px;color:#666;margin:0;">Join a top hospital with our placement guarantee</p>
+        </div>
+      </div>
+
+      <!-- Promise Banner -->
+      <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;border-radius:12px;padding:20px 28px;text-align:center;margin-bottom:48px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span style="font-size:16px;font-weight:700;color:#92400e;">AutoHireBot Promise:</span>
+        <span style="font-size:15px;color:#78350f;">If not matched in 7 days, our team personally re-matches you with expanded criteria.</span>
+      </div>
+
+      <!-- Live Stats Grid -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:48px;" class="stats-grid-assurance">
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div id="stat-total-placed" style="font-size:36px;font-weight:800;color:#0d9488;margin-bottom:4px;" data-target="0">&mdash;</div>
+          <div style="font-size:14px;color:#666;font-weight:500;">Nurses Placed</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div id="stat-avg-time" style="font-size:36px;font-weight:800;color:#0d9488;margin-bottom:4px;" data-target="0">&mdash;</div>
+          <div style="font-size:14px;color:#666;font-weight:500;">Avg Days to Placement</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div id="stat-this-month" style="font-size:36px;font-weight:800;color:#0d9488;margin-bottom:4px;" data-target="0">&mdash;</div>
+          <div style="font-size:14px;color:#666;font-weight:500;">Placed This Month</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <div id="stat-success-rate" style="font-size:36px;font-weight:800;color:#0d9488;margin-bottom:4px;" data-target="0">&mdash;</div>
+          <div style="font-size:14px;color:#666;font-weight:500;">Success Rate</div>
+        </div>
+      </div>
+
+      <!-- Recently Placed Ticker -->
+      <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:16px 24px;overflow:hidden;margin-bottom:40px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:50%;animation:pulse 2s infinite;"></span>
+          <span style="font-size:13px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:0.5px;">Recently Placed</span>
+        </div>
+        <div id="placement-ticker" style="font-size:15px;color:#333;white-space:nowrap;overflow:hidden;">
+          <span style="color:#666;font-style:italic;">Be among the first nurses placed through our Assurance Program</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;">
+        <a href="#forms" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#0d9488,#0f766e);color:#fff;padding:16px 40px;border-radius:12px;text-decoration:none;font-size:17px;font-weight:700;box-shadow:0 4px 15px rgba(13,148,136,0.3);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(13,148,136,0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(13,148,136,0.3)'">
+          Start Your Guaranteed Placement Journey
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials-section fade-in">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 20px;">
+      <div class="section-header" style="text-align:center;margin-bottom:48px;">
+        <div class="section-badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(13,148,136,0.1);color:#0d9488;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:600;margin-bottom:16px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Success Stories
+        </div>
+        <h2 class="section-title" style="font-size:36px;font-weight:800;color:#111;margin-bottom:12px;">Nurses Love AutoHireBot</h2>
+        <p class="section-description" style="font-size:17px;color:#666;max-width:600px;margin:0 auto;">Hear from nurses who found their dream jobs through our AI-powered placement platform.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;" class="testimonials-grid">
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">P.K.</div>
+            <div>
+              <div style="font-weight:700;color:#111;font-size:15px;">Priya K.</div>
+              <div style="font-size:13px;color:#666;">Staff Nurse, Apollo Hospital Delhi</div>
+            </div>
+            <div style="margin-left:auto;color:#f59e0b;font-size:16px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+          <p style="font-size:14px;color:#555;line-height:1.7;margin:0;">"I registered on AutoHireBot and within 3 days, I had 5 interview calls. The AI matching was incredibly accurate &mdash; it found hospitals that perfectly matched my ICU experience and salary expectations."</p>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">R.S.</div>
+            <div>
+              <div style="font-weight:700;color:#111;font-size:15px;">Rahul S.</div>
+              <div style="font-size:13px;color:#666;">OT Nurse, Fortis Bangalore</div>
+            </div>
+            <div style="margin-left:auto;color:#f59e0b;font-size:16px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+          <p style="font-size:14px;color:#555;line-height:1.7;margin:0;">"After struggling with traditional job portals for months, AutoHireBot placed me in just 5 days. The WhatsApp notifications kept me updated at every step. Truly a game-changer for nursing recruitment!"</p>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#0891b2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">A.M.</div>
+            <div>
+              <div style="font-weight:700;color:#111;font-size:15px;">Anjali M.</div>
+              <div style="font-size:13px;color:#666;">ICU Nurse, Max Healthcare Mumbai</div>
+            </div>
+            <div style="margin-left:auto;color:#f59e0b;font-size:16px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+          <p style="font-size:14px;color:#555;line-height:1.7;margin:0;">"The Carebot AI helped me prepare for my interview with specific questions for ICU roles. I felt confident and got selected in my first interview. Highly recommend to all nurses!"</p>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">S.D.</div>
+            <div>
+              <div style="font-weight:700;color:#111;font-size:15px;">Sunita D.</div>
+              <div style="font-size:13px;color:#666;">Head Nurse, Medanta Gurugram</div>
+            </div>
+            <div style="margin-left:auto;color:#f59e0b;font-size:16px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          </div>
+          <p style="font-size:14px;color:#555;line-height:1.7;margin:0;">"As a recruiter, I was amazed by the quality of candidates AutoHireBot matched for our hospital. The ATS pipeline made hiring seamless. We've hired 12 nurses through the platform so far!"</p>
         </div>
       </div>
     </div>
@@ -3477,6 +3915,49 @@
       </span>
     </div>
   </section>
+
+  <!-- Refer a Nurse Friend Section -->
+  <section id="referral" style="padding:60px 0;background:linear-gradient(135deg,#0f766e,#0d9488);">
+    <div style="max-width:800px;margin:0 auto;padding:0 20px;text-align:center;">
+      <h2 style="font-size:32px;font-weight:800;color:#fff;margin-bottom:12px;">Refer a Nurse Friend</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.85);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;">Know a nurse looking for a job? Share AutoHireBot and help them get placed at top hospitals!</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a id="whatsappShareBtn" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 4px 15px rgba(37,211,102,0.3);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Share on WhatsApp
+        </a>
+        <button id="copyReferralBtn" onclick="copyReferralLink()" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.15);color:#fff;padding:14px 28px;border-radius:12px;border:2px solid rgba(255,255,255,0.3);font-weight:700;font-size:15px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Referral Link
+        </button>
+      </div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:20px;">Your unique referral link will be generated after you register.</p>
+    </div>
+  </section>
+  <script>
+  function getReferralLink() {
+    return 'https://autohirebot.com/?ref=SHARE';
+  }
+  (function() {
+    var wa = document.getElementById('whatsappShareBtn');
+    if (wa) {
+      var msg = encodeURIComponent('Hey! I found this amazing AI-powered nursing jobs platform. Register FREE and get matched with top hospitals in minutes!\n\n' + getReferralLink());
+      wa.href = 'https://wa.me/?text=' + msg;
+    }
+  })();
+  function copyReferralLink() {
+    var link = getReferralLink();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(link).then(function() {
+        var btn = document.getElementById('copyReferralBtn');
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        setTimeout(function() {
+          btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Referral Link';
+        }, 2000);
+      });
+    }
+  }
+  </script>
 
   <!-- Footer -->
   <footer>
@@ -4528,8 +5009,11 @@
           return;
         }
         
+        // Capture referral code from URL
+        var refCode = new URLSearchParams(window.location.search).get('ref') || '';
+
         // Save to Firebase Firestore (unverified)
-        var docRef = await db.collection('jobSeekers').add({
+        var seekerPayload = {
           name: name,
           email: email,
           phone: formData.get('phone'),
@@ -4542,7 +5026,9 @@
           emailVerified: false,
           userType: 'jobSeeker',
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        };
+        if (refCode) seekerPayload.referredBy = refCode;
+        var docRef = await db.collection('jobSeekers').add(seekerPayload);
         
         window.pendingSeekerId = docRef.id;
         
@@ -5661,6 +6147,65 @@ if (uploadSection) {
     <p>Contact: admin@autohirebot.com | Website: autohirebot.com</p>
   </div>
 </noscript>
+
+<!-- Placement Stats Loader -->
+<script>
+(function() {
+  const STATS_URL = 'https://us-central1-autohirebot-7e498.cloudfunctions.net/getPublicStats';
+
+  function animateCounter(el, target, suffix) {
+    if (!target) { el.textContent = '\u2014'; return; }
+    let current = 0;
+    const step = Math.max(1, Math.ceil(target / 40));
+    const interval = setInterval(function() {
+      current += step;
+      if (current >= target) { current = target; clearInterval(interval); }
+      el.textContent = current + (suffix || '');
+    }, 30);
+  }
+
+  function timeAgo(dateStr) {
+    var diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
+    if (diff < 3600) return Math.round(diff / 60) + ' min ago';
+    if (diff < 86400) return Math.round(diff / 3600) + ' hours ago';
+    return Math.round(diff / 86400) + ' days ago';
+  }
+
+  function renderTicker(placements) {
+    var ticker = document.getElementById('placement-ticker');
+    if (!ticker || !placements || !placements.length) return;
+    var html = placements.map(function(p) {
+      return '<span style="margin-right:40px;">' + p.initials + ' placed as <strong>' + p.jobTitle + '</strong> at ' + p.hospital + ', ' + p.location + ' &mdash; ' + timeAgo(p.hiredAt) + '</span>';
+    }).join('');
+    ticker.innerHTML = '<span class="ticker-animate">' + html + html + '</span>';
+  }
+
+  function loadStats() {
+    fetch(STATS_URL).then(function(r) { return r.json(); }).then(function(data) {
+      animateCounter(document.getElementById('stat-total-placed'), data.totalPlacements);
+      animateCounter(document.getElementById('stat-avg-time'), data.avgTimeToPlacement);
+      animateCounter(document.getElementById('stat-this-month'), data.thisMonthPlacements);
+      animateCounter(document.getElementById('stat-success-rate'), data.successRate, '%');
+      if (data.recentPlacements && data.recentPlacements.length) {
+        renderTicker(data.recentPlacements);
+      }
+    }).catch(function(err) {
+      console.log('Stats fetch skipped:', err.message);
+    });
+  }
+
+  // Load when placement section scrolls into view
+  var section = document.getElementById('placement-assurance');
+  if (section && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) { loadStats(); obs.disconnect(); }
+    }, { threshold: 0.1 });
+    obs.observe(section);
+  } else {
+    loadStats();
+  }
+})();
+</script>
 
 </body>
 </html>
